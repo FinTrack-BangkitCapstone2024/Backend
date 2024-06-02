@@ -1,7 +1,7 @@
 
 # FinTrack Backend
 
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&size=28&pause=1000&color=1388F7&random=false&width=435&lines=Training+Code+Center)](https://git.io/typing-svg)
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&size=28&pause=1000&color=1388F7&random=false&width=435&lines=FinTrack)](https://git.io/typing-svg)
 
 **FinTrack ** adalah aplikasi manajemen keuangan yang dilengkapi dengan fitur-fitur AI. Berikut adalah backend service dari FinTrack 
 
