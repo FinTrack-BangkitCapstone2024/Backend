@@ -12,10 +12,10 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <link rel="stylesheet" href="https://malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.min.css">
     <!-- using local links -->
-    <link rel="stylesheet" href="/docs/css/main.min.css">
-    <link rel="stylesheet" href="/docs/css/sidebar-themes.min.css">
-    <link rel="stylesheet" href="/docs/css/bootstrap-treeview.min.css">
-    <link rel="stylesheet" href="/docs/css/postman.min.css">
+    <link rel="stylesheet" href="css/main.min.css">
+    <link rel="stylesheet" href="css/sidebar-themes.min.css">
+    <link rel="stylesheet" href="css/bootstrap-treeview.min.css">
+    <link rel="stylesheet" href="css/postman.min.css">
 
     <link rel="shortcut icon" type="image/png" href="img/favicon.png" /> </head>
 
@@ -27,7 +27,7 @@
             <div class="title">Example Response</div>
             <button type="button" class="close btn-circle" data-dismiss="modal" aria-label="Close">
               <div>
-              <span id="closeModal" aria-hidden="true">ï¿½</span>
+              <span id="closeModal" aria-hidden="true">×</span>
               </div>
             </button>
           </div>
@@ -87,7 +87,7 @@
                                             Sign in with email <span class="lock-icon"></span>
                                         </div>
                                      </div>
-                                    <div class="url">http://localhost:{{port}}/api/auth/signInWithEmail</div>
+                                    <div class="url">{{url}}/api/auth/signInWithEmail</div>
                                     
                                     <div class="request-body">
                                         <div class="body-heading">BODY <span class="body-type">raw</span></div>
@@ -97,8 +97,8 @@
                                                   <code>
                                                     
 {
-    "email" : "ghufran@gmail.com",
-    "password" : "ghufran"
+    "email" : "u1@gmail.com",
+    "password" : "password"
 }
                                                   </code>
                                               </pre>
@@ -132,11 +132,11 @@
                                         <div>
                                             <pre class="click-to-expand-wrapper is-snippet-wrapper " data-title="Sign in with email">
                                                 <code class="is-highlighted">
-POST http://localhost:3000/api/auth/signInWithEmail
+POST https://fintrack-424802.et.r.appspot.com/api/auth/signInWithEmail
 
 {
-    "email" : "ghufran@gmail.com",
-    "password" : "ghufran"
+    "email" : "u1@gmail.com",
+    "password" : "password"
 }</code>
                                             </pre>
                                         </div>
@@ -154,7 +154,7 @@ POST http://localhost:3000/api/auth/signInWithEmail
                                             Register user with Email <span class="lock-icon"></span>
                                         </div>
                                      </div>
-                                    <div class="url">http://localhost:{{port}}/api/auth/signUpWithEmail</div>
+                                    <div class="url">{{url}}api/auth/signUpWithEmail</div>
                                     
                                     <div class="request-body">
                                         <div class="body-heading">BODY <span class="body-type">raw</span></div>
@@ -199,7 +199,7 @@ POST http://localhost:3000/api/auth/signInWithEmail
                                         <div>
                                             <pre class="click-to-expand-wrapper is-snippet-wrapper " data-title="Register user with Email">
                                                 <code class="is-highlighted">
-POST http://localhost:3000/api/auth/signUpWithEmail
+POST https://fintrack-424802.et.r.appspot.comapi/auth/signUpWithEmail
 
 {
     "email" : "u1@gmail.com",
@@ -221,7 +221,18 @@ POST http://localhost:3000/api/auth/signUpWithEmail
                                             Get All Users <span class="lock-icon"></span>
                                         </div>
                                      </div>
-                                    <div class="url">http://localhost:{{port}}/api/users/</div>
+                                    <div class="url">{{url}}/api/users</div>
+                                    
+                                    <div class="request-body">
+                                        <div class="body-heading">PARAMS</div>
+                                        <hr>
+                                          <div class="param row">
+                                            <div class="name col-md-3 col-xs-12"></div>
+                                            <div class="value col-md-9 col-xs-12">None</div>
+                                            <div class="description col-md-9 col-xs-12"><p>None</p>
+                                            </div>
+                                          </div>
+                                    </div>
                                     
                                 </div>
                             </div>
@@ -249,7 +260,7 @@ POST http://localhost:3000/api/auth/signUpWithEmail
                                         <div>
                                             <pre class="click-to-expand-wrapper is-snippet-wrapper " data-title="Get All Users">
                                                 <code class="is-highlighted">
-GET http://localhost:3000/api/users/</code>
+GET https://fintrack-424802.et.r.appspot.com/api/users</code>
                                             </pre>
                                         </div>
                                     </div>
@@ -266,7 +277,7 @@ GET http://localhost:3000/api/users/</code>
                                             Get One User <span class="lock-icon"></span>
                                         </div>
                                      </div>
-                                    <div class="url">http://localhost:{{port}}/api/users/{{userId}}</div>
+                                    <div class="url">{{url}}/api/users/{{userId}}</div>
                                     
                                 </div>
                             </div>
@@ -294,7 +305,7 @@ GET http://localhost:3000/api/users/</code>
                                         <div>
                                             <pre class="click-to-expand-wrapper is-snippet-wrapper " data-title="Get One User">
                                                 <code class="is-highlighted">
-GET http://localhost:3000/api/users/</code>
+GET https://fintrack-424802.et.r.appspot.com/api/users/</code>
                                             </pre>
                                         </div>
                                     </div>
@@ -311,7 +322,7 @@ GET http://localhost:3000/api/users/</code>
                                             Edit User <span class="lock-icon"></span>
                                         </div>
                                      </div>
-                                    <div class="url">http://localhost:{{port}}/api/users/{{userId}}</div>
+                                    <div class="url">{{url}}/api/users/{{userId}}</div>
                                     
                                     <div class="request-body">
                                         <div class="body-heading">BODY <span class="body-type">raw</span></div>
@@ -356,7 +367,7 @@ GET http://localhost:3000/api/users/</code>
                                         <div>
                                             <pre class="click-to-expand-wrapper is-snippet-wrapper " data-title="Edit User">
                                                 <code class="is-highlighted">
-PUT http://localhost:3000/api/users/
+PUT https://fintrack-424802.et.r.appspot.com/api/users/
 
 {
     "name": "anyiefbaru123",
@@ -378,7 +389,7 @@ PUT http://localhost:3000/api/users/
                                             Delete User <span class="lock-icon"></span>
                                         </div>
                                      </div>
-                                    <div class="url">http://localhost:{{port}}/api/users/{{userId}}</div>
+                                    <div class="url">{{url}}/api/users/{{userId}}</div>
                                     
                                 </div>
                             </div>
@@ -406,7 +417,7 @@ PUT http://localhost:3000/api/users/
                                         <div>
                                             <pre class="click-to-expand-wrapper is-snippet-wrapper " data-title="Delete User">
                                                 <code class="is-highlighted">
-DELETE http://localhost:3000/api/users/</code>
+DELETE https://fintrack-424802.et.r.appspot.com/api/users/</code>
                                             </pre>
                                         </div>
                                     </div>
@@ -423,7 +434,7 @@ DELETE http://localhost:3000/api/users/</code>
                                             Add User <span class="lock-icon"></span>
                                         </div>
                                      </div>
-                                    <div class="url">http://localhost:{{port}}/api/users/</div>
+                                    <div class="url">{{url}}/api/users</div>
                                     
                                     <div class="request-body">
                                         <div class="body-heading">BODY <span class="body-type">raw</span></div>
@@ -433,9 +444,9 @@ DELETE http://localhost:3000/api/users/</code>
                                                   <code>
                                                     
 {
-    "name" : "ghufran",
-    "email" : "ghufran@gmail.com",
-    "password" : "ghufran"
+    "name" : "fajryy",
+    "email" : "fajryy@gmail.com",
+    "password" : "fajryy"
 }
                                                   </code>
                                               </pre>
@@ -469,12 +480,12 @@ DELETE http://localhost:3000/api/users/</code>
                                         <div>
                                             <pre class="click-to-expand-wrapper is-snippet-wrapper " data-title="Add User">
                                                 <code class="is-highlighted">
-POST http://localhost:3000/api/users/
+POST https://fintrack-424802.et.r.appspot.com/api/users
 
 {
-    "name" : "ghufran",
-    "email" : "ghufran@gmail.com",
-    "password" : "ghufran"
+    "name" : "fajryy",
+    "email" : "fajryy@gmail.com",
+    "password" : "fajryy"
 }</code>
                                             </pre>
                                         </div>
@@ -497,8 +508,8 @@ POST http://localhost:3000/api/users/
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous">
     </script>
     <script src="https://malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script src="/docs/js/bootstrap-treeview.min.js"></script>
-    <script src="/docs/js/main.min.js"></script>
+    <script src="js/bootstrap-treeview.min.js"></script>
+    <script src="js/main.min.js"></script>
     <script type="application/javascript">
         var data = [{'text': 'Auth', 'nodes': [{'text': 'Sign in with email', 'href': '#1', 'method': 'POST'}, {'text': 'Register user with Email', 'href': '#2', 'method': 'POST'}], 'icon': 'fas fa-folder', 'selectable': 'false'}, {'text': 'users', 'nodes': [{'text': 'Get All Users', 'href': '#3', 'method': 'GET'}, {'text': 'Get One User', 'href': '#4', 'method': 'GET'}, {'text': 'Edit User', 'href': '#5', 'method': 'PUT'}, {'text': 'Delete User', 'href': '#6', 'method': 'DELETE'}, {'text': 'Add User', 'href': '#7', 'method': 'POST'}], 'icon': 'fas fa-folder', 'selectable': 'false'}]
         $('#tree').treeview({
