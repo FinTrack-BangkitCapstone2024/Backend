@@ -132,7 +132,7 @@
                                         <div>
                                             <pre class="click-to-expand-wrapper is-snippet-wrapper " data-title="Sign in with email">
                                                 <code class="is-highlighted">
-POST https://fintrack-424802.et.r.appspot.com/api/auth/signInWithEmail
+POST http://localhost:{{port}}/api/auth/signInWithEmail
 
 {
     "email" : "u1@gmail.com",
@@ -154,7 +154,7 @@ POST https://fintrack-424802.et.r.appspot.com/api/auth/signInWithEmail
                                             Register user with Email <span class="lock-icon"></span>
                                         </div>
                                      </div>
-                                    <div class="url">{{url}}api/auth/signUpWithEmail</div>
+                                    <div class="url">{{url}}/api/auth/signUpWithEmail</div>
                                     
                                     <div class="request-body">
                                         <div class="body-heading">BODY <span class="body-type">raw</span></div>
@@ -164,8 +164,9 @@ POST https://fintrack-424802.et.r.appspot.com/api/auth/signInWithEmail
                                                   <code>
                                                     
 {
-    "email" : "u1@gmail.com",
-    "password" : "password"
+    "email" : "fajry@gmail.com",
+    "password" : "12345678",
+    "name" : "fajry"
 }
                                                   </code>
                                               </pre>
@@ -199,11 +200,12 @@ POST https://fintrack-424802.et.r.appspot.com/api/auth/signInWithEmail
                                         <div>
                                             <pre class="click-to-expand-wrapper is-snippet-wrapper " data-title="Register user with Email">
                                                 <code class="is-highlighted">
-POST https://fintrack-424802.et.r.appspot.comapi/auth/signUpWithEmail
+POST http://localhost:{{port}}/api/auth/signUpWithEmail
 
 {
-    "email" : "u1@gmail.com",
-    "password" : "password"
+    "email" : "fajry@gmail.com",
+    "password" : "12345678",
+    "name" : "fajry"
 }</code>
                                             </pre>
                                         </div>
@@ -221,7 +223,7 @@ POST https://fintrack-424802.et.r.appspot.comapi/auth/signUpWithEmail
                                             Get All Users <span class="lock-icon"></span>
                                         </div>
                                      </div>
-                                    <div class="url">{{url}}/api/users</div>
+                                    <div class="url">{{url}}/api/users/</div>
                                     
                                     <div class="request-body">
                                         <div class="body-heading">PARAMS</div>
@@ -260,7 +262,7 @@ POST https://fintrack-424802.et.r.appspot.comapi/auth/signUpWithEmail
                                         <div>
                                             <pre class="click-to-expand-wrapper is-snippet-wrapper " data-title="Get All Users">
                                                 <code class="is-highlighted">
-GET https://fintrack-424802.et.r.appspot.com/api/users</code>
+GET http://localhost:{{port}}/api/users/</code>
                                             </pre>
                                         </div>
                                     </div>
@@ -305,7 +307,7 @@ GET https://fintrack-424802.et.r.appspot.com/api/users</code>
                                         <div>
                                             <pre class="click-to-expand-wrapper is-snippet-wrapper " data-title="Get One User">
                                                 <code class="is-highlighted">
-GET https://fintrack-424802.et.r.appspot.com/api/users/</code>
+GET http://localhost:{{port}}/api/users/ID6RRu9UWXgMczytCGRK</code>
                                             </pre>
                                         </div>
                                     </div>
@@ -332,8 +334,7 @@ GET https://fintrack-424802.et.r.appspot.com/api/users/</code>
                                                   <code>
                                                     
 {
-    "name": "anyiefbaru123",
-    "email": "anyieff@gmail.com"
+    "password" : "akuganteng"
 }
                                                   </code>
                                               </pre>
@@ -367,11 +368,10 @@ GET https://fintrack-424802.et.r.appspot.com/api/users/</code>
                                         <div>
                                             <pre class="click-to-expand-wrapper is-snippet-wrapper " data-title="Edit User">
                                                 <code class="is-highlighted">
-PUT https://fintrack-424802.et.r.appspot.com/api/users/
+PUT http://localhost:{{port}}/api/users/ID6RRu9UWXgMczytCGRK
 
 {
-    "name": "anyiefbaru123",
-    "email": "anyieff@gmail.com"
+    "password" : "akuganteng"
 }</code>
                                             </pre>
                                         </div>
@@ -417,7 +417,7 @@ PUT https://fintrack-424802.et.r.appspot.com/api/users/
                                         <div>
                                             <pre class="click-to-expand-wrapper is-snippet-wrapper " data-title="Delete User">
                                                 <code class="is-highlighted">
-DELETE https://fintrack-424802.et.r.appspot.com/api/users/</code>
+DELETE http://localhost:{{port}}/api/users/ID6RRu9UWXgMczytCGRK</code>
                                             </pre>
                                         </div>
                                     </div>
@@ -444,9 +444,9 @@ DELETE https://fintrack-424802.et.r.appspot.com/api/users/</code>
                                                   <code>
                                                     
 {
-    "name" : "fajryy",
-    "email" : "fajryy@gmail.com",
-    "password" : "fajryy"
+    "name" : "upan",
+    "email" : "upan@gmail.com",
+    "password" : "fajryyy"
 }
                                                   </code>
                                               </pre>
@@ -480,12 +480,12 @@ DELETE https://fintrack-424802.et.r.appspot.com/api/users/</code>
                                         <div>
                                             <pre class="click-to-expand-wrapper is-snippet-wrapper " data-title="Add User">
                                                 <code class="is-highlighted">
-POST https://fintrack-424802.et.r.appspot.com/api/users
+POST http://localhost:{{port}}/api/users
 
 {
-    "name" : "fajryy",
-    "email" : "fajryy@gmail.com",
-    "password" : "fajryy"
+    "name" : "upan",
+    "email" : "upan@gmail.com",
+    "password" : "fajryyy"
 }</code>
                                             </pre>
                                         </div>
