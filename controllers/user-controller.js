@@ -1,75 +1,61 @@
-const { firebaseApp} = require("../config/firebase");
 
 const { getFirestore, collection, getDocs, addDoc, updateDoc, doc, getDoc, deleteDoc } = require("firebase/firestore/lite");
+const { firebaseApp} = require("../config/firebase");
 const db = getFirestore(firebaseApp);
+const User = require('../models/user')
 
 const getAllUsers = async (req, res) => {
   try {
-    const querySnapshot = await getDocs(collection(db, "users"));
-    console.log(querySnapshot.docs.map((doc) => doc.data()));
-    res.status(200).json(querySnapshot.docs.map((doc) => doc.data()));
+    const items = await User.getAll();
+    res.status(200).json({code : 200, status : "success", data: items});
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ code : 500, status : "error", data: {message: error.message}});
   }
 };
 
 const getUsers = async(req, res) => {
   try {
-    const querySnapshot = await getDocs(collection(db, "users"));
-    const users = querySnapshot.docs.map((doc) => doc.data());
-    const user = users.find((user) => user.id === req.params.id);
+    const user = await User.findById(req.params.id)
     if (user) {
-      res.status(200).json(user);
+      res.status(200).json({code : 200, status : "success", data: user});
     } else {
-      res.status(404).json({ message: "User not found" });
+      res.status(500).json({ code : 404, status : "error", data: {message: error.message}});
     }
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ code : 500, status : "error", data: {message: error.message}});
   }
 }
 
 const addUser = async (req, res) => {
   try {
-    const docRef = await addDoc(collection(db, "users"), req.body);
-    const id = docRef.id;
-    const user = { id: id, ...req.body };
-    await updateDoc(doc(db, "users", id), user);
-    res.status(201).json({ data : {id: docRef.id} });
+    const oldUser = await this.findBy('email', body.email);
+    console.log(oldUser)
+    if(oldUser.email) {
+      throw new Error('Email already exists')
+    };
+    const user = await User.add(req.body);
+    res.status(201).json({ code : 201, status : "created", data : {id: user.id} });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ code : 500, status : "error", data: {message: error.message}});
   }
 };
 
+
 const editUser = async (req, res) => {
   try {
-    const querySnapshot = await getDocs(collection(db, "users"));
-    const users = querySnapshot.docs.map((doc) => doc.data());
-    const user = users.find((user) => user.id === req.params.id);
-    if (user) {
-      await updateDoc(doc(db, "users", req.params.id), req.body);
-      const updatedUserDoc = await getDoc(doc(db, "users", req.params.id));
-      const newUser = updatedUserDoc.data();
-      res.status(200).json({ message: "User updated", data: newUser});
-    } else {
-      res.status(404).json({ message: "User not found" });
-    }
+    const user = await User.edit(req.params.id, req.body);
+    res.status(200).json({ code : 200, status : "edited", message: "User updated", data: user});
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ code : 500, status : "error", data: {message: error.message}});
   }
 }
 
 const deleteUser = async (req, res) => {
   try {
-    const userRef = await getDoc(doc(db, "users", req.params.id));
-    const user = userRef.data();
-    if (user) {
-      await deleteDoc(doc(db, "users", req.params.id));
-      res.status(200).json({ message: "User deleted", data: {id : req.params.id} });
-    } else {
-      res.status(404).json({ message: "User not found" });
-    }
+    await User.delete(req.params.id);
+    res.status(200).json({ code : 200, status : "deleted", message: "User updated", data: req.params.id});
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ code : 500, status : "error", data: {message: error.message}});
   }
 }
 
