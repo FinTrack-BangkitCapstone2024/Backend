@@ -9,7 +9,7 @@ const getAllUsers = async (req, res) => {
     const items = await User.getAll();
     res.status(200).json({code : 200, status : "success", data: items});
   } catch (error) {
-    res.status(500).json({ code : 500, status : "error", data: {message: error.message}});
+    res.status(500).json({ code : 500, status : "error", message: error.message});
   }
 };
 
@@ -19,16 +19,16 @@ const getUsers = async(req, res) => {
     if (user) {
       res.status(200).json({code : 200, status : "success", data: user});
     } else {
-      res.status(500).json({ code : 404, status : "error", data: {message: error.message}});
+      res.status(500).json({ code : 404, status : "error", message: error.message});
     }
   } catch (error) {
-    res.status(500).json({ code : 500, status : "error", data: {message: error.message}});
+    res.status(500).json({ code : 500, status : "error", message: error.message});
   }
 }
 
 const addUser = async (req, res) => {
   try {
-    const oldUser = await User.findBy('email', body.email);
+    const oldUser = await User.findBy('email', req.body.email);
     console.log(oldUser)
     if(oldUser.email) {
       throw new Error('Email already exists')
@@ -36,7 +36,7 @@ const addUser = async (req, res) => {
     const user = await User.add(req.body);
     res.status(201).json({ code : 201, status : "created", data : {id: user.id} });
   } catch (error) {
-    res.status(500).json({ code : 500, status : "error", data: {message: error.message}});
+    res.status(500).json({ code : 500, status : "error", message: error.message});
   }
 };
 
@@ -46,7 +46,7 @@ const editUser = async (req, res) => {
     const user = await User.edit(req.params.id, req.body);
     res.status(200).json({ code : 200, status : "edited", message: "User updated", data: user});
   } catch (error) {
-    res.status(500).json({ code : 500, status : "error", data: {message: error.message}});
+    res.status(500).json({ code : 500, status : "error", message: error.message});
   }
 }
 
@@ -55,7 +55,7 @@ const deleteUser = async (req, res) => {
     await User.delete(req.params.id);
     res.status(200).json({ code : 200, status : "deleted", message: "User updated", data: req.params.id});
   } catch (error) {
-    res.status(500).json({ code : 500, status : "error", data: {message: error.message}});
+    res.status(500).json({ code : 500, status : "error", message: error.message});
   }
 }
 

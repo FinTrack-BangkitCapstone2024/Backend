@@ -4,7 +4,7 @@ const getAllUsaha =  async (req, res) => {
     const items = await Usaha.getAll();
     res.status(200).json({code : 200, status : "success", data: items});
   } catch (error) {
-    res.status(500).json({ code : 500, status : "error", data: {message: error.message}});
+    res.status(500).json({ code : 500, status : "error", message: error.message});
   }
 }
 
@@ -14,10 +14,10 @@ const getUsaha = async(req, res) => {
     if (usaha) {
       res.status(200).json({code : 200, status : "success", data: usaha});
     } else {
-      res.status(500).json({ code : 404, status : "error", data: {message: error.message}});
+      res.status(500).json({ code : 404, status : "error", message: error.message});
     }
   } catch (error) {
-    res.status(500).json({ code : 500, status : "error", data: {message: error.message}});
+    res.status(500).json({ code : 500, status : "error", message: error.message});
   }
 }
 

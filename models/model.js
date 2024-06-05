@@ -22,7 +22,7 @@ class Model {
     if(snapshot.exists()){
       return snapshot.data()
     }else{
-      return []
+      return ["not found"]
     }
   }
 
