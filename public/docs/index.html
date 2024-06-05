@@ -73,7 +73,11 @@
                                         <p>Fintrack</p>
                                     </div>
                                     <div class="collection-description">
-                                        <p>Ini adalah Backend dari FinTrack. FinTrack adalah aplikasi manajemen keuangan yang dilengkapi dengan fitur-fitur AI.</p>
+                                        <p>Ini adalah Backend dari FinTrack. FinTrack adalah aplikasi manajemen keuangan yang dilengkapi dengan fitur-fitur AI.
+
+**base URL :**
+
+[https://fintrack-424802.et.r.appspot.com/](https://fintrack-424802.et.r.appspot.com/docs/)</p>
                                     </div>
                                 </div>
                             </div>
@@ -87,7 +91,7 @@
                                             Sign in with email <span class="lock-icon"></span>
                                         </div>
                                      </div>
-                                    <div class="url">{{url}}/api/auth/signInWithEmail</div>
+                                    <div class="url">{{url-public}}/api/auth/signInWithEmail</div>
                                     
                                     <div class="request-body">
                                         <div class="body-heading">BODY <span class="body-type">raw</span></div>
@@ -97,8 +101,8 @@
                                                   <code>
                                                     
 {
-    "email" : "u1@gmail.com",
-    "password" : "password"
+    "email" : "fajrigantengBanget@gmail.com",
+    "password" : "11111111"
 }
                                                   </code>
                                               </pre>
@@ -132,11 +136,11 @@
                                         <div>
                                             <pre class="click-to-expand-wrapper is-snippet-wrapper " data-title="Sign in with email">
                                                 <code class="is-highlighted">
-POST http://localhost:{{port}}/api/auth/signInWithEmail
+POST https://fintrack-424802.et.r.appspot.com//api/auth/signInWithEmail
 
 {
-    "email" : "u1@gmail.com",
-    "password" : "password"
+    "email" : "fajrigantengBanget@gmail.com",
+    "password" : "11111111"
 }</code>
                                             </pre>
                                         </div>
@@ -494,6 +498,141 @@ POST http://localhost:{{port}}/api/users
                             </div>
                             
                         </div>
+                        <div class="row row-no-padding row-eq-height">
+                            <div class="col-md-6 col-xs-12 section">
+                                <div class="api-information" id="8">
+                                     <div class="heading">
+                                        <div class="name">
+                                            <span class="GET method" >GET</span>
+                                            Get All Usaha <span class="lock-icon"></span>
+                                        </div>
+                                     </div>
+                                    <div class="url">{{url}}/api/usaha/</div>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xs-12 examples">
+                                <div class="sample-request">
+                                    <div class="heading">
+                                        <span>Example Request</span>
+                                    </div>
+                                    <div class="responses-index">
+                                        <div class="dropdown response-name">
+                                            <button class="btn   responses-dropdown truncate" type="button" id="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                              <span id="selected" class="response-name-label">Get All Usaha</span>
+                                                <span class="caret"></span>
+
+                                            </button>
+
+                                            <ul class="dropdown-menu" aria-labelledby="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown">
+                                                <li class="truncate" data-request-info="8" data-response-info="response_8">Get All Usaha</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="formatted-requests " data-request-id="8"  data-id="response_8">
+                                    <div class="request code-snippet">
+                                        <div>
+                                            <pre class="click-to-expand-wrapper is-snippet-wrapper " data-title="Get All Usaha">
+                                                <code class="is-highlighted">
+GET http://localhost:{{port}}/api/usaha/</code>
+                                            </pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="row row-no-padding row-eq-height">
+                            <div class="col-md-6 col-xs-12 section">
+                                <div class="api-information" id="9">
+                                     <div class="heading">
+                                        <div class="name">
+                                            <span class="GET method" >GET</span>
+                                            Get Usaha <span class="lock-icon"></span>
+                                        </div>
+                                     </div>
+                                    <div class="url">{{url}}/api/usaha/{{usahaId}}</div>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xs-12 examples">
+                                <div class="sample-request">
+                                    <div class="heading">
+                                        <span>Example Request</span>
+                                    </div>
+                                    <div class="responses-index">
+                                        <div class="dropdown response-name">
+                                            <button class="btn   responses-dropdown truncate" type="button" id="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                              <span id="selected" class="response-name-label">Get Usaha</span>
+                                                <span class="caret"></span>
+
+                                            </button>
+
+                                            <ul class="dropdown-menu" aria-labelledby="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown">
+                                                <li class="truncate" data-request-info="9" data-response-info="response_9">Get Usaha</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="formatted-requests " data-request-id="9"  data-id="response_9">
+                                    <div class="request code-snippet">
+                                        <div>
+                                            <pre class="click-to-expand-wrapper is-snippet-wrapper " data-title="Get Usaha">
+                                                <code class="is-highlighted">
+GET http://localhost:{{port}}/api/usaha/{{usahaId}}</code>
+                                            </pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="row row-no-padding row-eq-height">
+                            <div class="col-md-6 col-xs-12 section">
+                                <div class="api-information" id="10">
+                                     <div class="heading">
+                                        <div class="name">
+                                            <span class="GET method" >GET</span>
+                                            Get usaha financials <span class="lock-icon"></span>
+                                        </div>
+                                     </div>
+                                    <div class="url">{{url}}/api/usaha/{{usahaId}}/financial</div>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xs-12 examples">
+                                <div class="sample-request">
+                                    <div class="heading">
+                                        <span>Example Request</span>
+                                    </div>
+                                    <div class="responses-index">
+                                        <div class="dropdown response-name">
+                                            <button class="btn   responses-dropdown truncate" type="button" id="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                              <span id="selected" class="response-name-label">Get usaha financials</span>
+                                                <span class="caret"></span>
+
+                                            </button>
+
+                                            <ul class="dropdown-menu" aria-labelledby="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown">
+                                                <li class="truncate" data-request-info="10" data-response-info="response_10">Get usaha financials</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="formatted-requests " data-request-id="10"  data-id="response_10">
+                                    <div class="request code-snippet">
+                                        <div>
+                                            <pre class="click-to-expand-wrapper is-snippet-wrapper " data-title="Get usaha financials">
+                                                <code class="is-highlighted">
+GET http://localhost:{{port}}/api/usaha/{{usahaId}}/financial</code>
+                                            </pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
                     </article>
                 </div>
             </div>
@@ -511,7 +650,7 @@ POST http://localhost:{{port}}/api/users
     <script src="js/bootstrap-treeview.min.js"></script>
     <script src="js/main.min.js"></script>
     <script type="application/javascript">
-        var data = [{'text': 'Auth', 'nodes': [{'text': 'Sign in with email', 'href': '#1', 'method': 'POST'}, {'text': 'Register user with Email', 'href': '#2', 'method': 'POST'}], 'icon': 'fas fa-folder', 'selectable': 'false'}, {'text': 'users', 'nodes': [{'text': 'Get All Users', 'href': '#3', 'method': 'GET'}, {'text': 'Get One User', 'href': '#4', 'method': 'GET'}, {'text': 'Edit User', 'href': '#5', 'method': 'PUT'}, {'text': 'Delete User', 'href': '#6', 'method': 'DELETE'}, {'text': 'Add User', 'href': '#7', 'method': 'POST'}], 'icon': 'fas fa-folder', 'selectable': 'false'}]
+        var data = [{'text': 'Auth', 'nodes': [{'text': 'Sign in with email', 'href': '#1', 'method': 'POST'}, {'text': 'Register user with Email', 'href': '#2', 'method': 'POST'}], 'icon': 'fas fa-folder', 'selectable': 'false'}, {'text': 'users', 'nodes': [{'text': 'Get All Users', 'href': '#3', 'method': 'GET'}, {'text': 'Get One User', 'href': '#4', 'method': 'GET'}, {'text': 'Edit User', 'href': '#5', 'method': 'PUT'}, {'text': 'Delete User', 'href': '#6', 'method': 'DELETE'}, {'text': 'Add User', 'href': '#7', 'method': 'POST'}], 'icon': 'fas fa-folder', 'selectable': 'false'}, {'text': 'usaha', 'nodes': [{'text': 'Get All Usaha', 'href': '#8', 'method': 'GET'}, {'text': 'Get Usaha', 'href': '#9', 'method': 'GET'}], 'icon': 'fas fa-folder', 'selectable': 'false'}, {'text': 'financials', 'nodes': [{'text': 'Get usaha financials', 'href': '#10', 'method': 'GET'}], 'icon': 'fas fa-folder', 'selectable': 'false'}]
         $('#tree').treeview({
             data: data,
             levels: 10,
