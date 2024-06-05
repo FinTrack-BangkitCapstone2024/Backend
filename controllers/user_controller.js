@@ -2,7 +2,7 @@
 const { getFirestore, collection, getDocs, addDoc, updateDoc, doc, getDoc, deleteDoc } = require("firebase/firestore/lite");
 const { firebaseApp} = require("../config/firebase");
 const db = getFirestore(firebaseApp);
-const User = require('../models/user')
+const User = require('../models/user_model')
 
 const getAllUsers = async (req, res) => {
   try {
@@ -28,7 +28,7 @@ const getUsers = async(req, res) => {
 
 const addUser = async (req, res) => {
   try {
-    const oldUser = await this.findBy('email', body.email);
+    const oldUser = await User.findBy('email', body.email);
     console.log(oldUser)
     if(oldUser.email) {
       throw new Error('Email already exists')

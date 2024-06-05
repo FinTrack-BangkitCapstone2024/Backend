@@ -3,7 +3,7 @@ const {
   signInWithEmail,
   createUserWithEmail,
   test
- } = require('../controllers/auth-controller')
+ } = require('../controllers/auth_controller')
 
 const router = express.Router()
 

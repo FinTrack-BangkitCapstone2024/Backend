@@ -1,6 +1,6 @@
 const { signInWithEmailAndPassword, createUserWithEmailAndPassword } = require('firebase/auth')
 const { auth } = require('../config/firebase')
-const User = require('../models/user')
+const User = require('../models/user_model')
 
 const signInWithEmail = async (req, res) => {
   try {

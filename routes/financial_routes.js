@@ -1,13 +1,19 @@
 const express = require('express')
 
-const sementara = () => {};
+const sementara = () => {
+  
+};
+
+const {getAllFinancialByUsahaId } = require('../controllers/financial_controller')
+
 
 const router = express.Router()
 
-router.get('/usaha/:usahaId/financial',sementara)
-router.get('/usaha/:usahaId/financial/:financialId', sementara)
+router.get('/:usahaId/financial', getAllFinancialByUsahaId)
+router.get('/:usahaId/financial/:financialId', sementara)
 
-router.post('/usaha/:usahaId/financial/add', sementara)
-router.put('/usaha/:usahaId/financial/:financialId', sementara)
-router.delete('/usaha/:usahaId/financial/:financialId', sementara)
+router.post('/:usahaId/financial/add', sementara)
+router.put('/:usahaId/financial/:financialId', sementara)
+router.delete('/:usahaId/financial/:financialId', sementara)
 
+module.exports = router
