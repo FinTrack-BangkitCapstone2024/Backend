@@ -30,7 +30,7 @@ const addUsahaFinancial = async (req, res) => {
 const editUsahaFinancial = async (req, res) => {
   try {
     const financial = await Financial.edit(req.params.financialId, req.body);
-    res.status(200).json({ code : 200, status : "edited", message: "Financial updated", data: financial});
+    res.status(200).json({ code : 200, status : "edited", data: financial});
   } catch (error) {
     res.status(500).json({ code : 500, status : "error", message: error.message});
   }
@@ -39,7 +39,7 @@ const editUsahaFinancial = async (req, res) => {
 const deleteUsahaFinancial = async (req, res) => {
   try {
     await Financial.delete(req.params.financialId);
-    res.status(200).json({ code : 200, status : "deleted", message: "Financial updated", data: req.params.financialId});
+    res.status(200).json({ code : 200, status : "deleted", data: req.params.financialId});
   } catch (error) {
     res.status(500).json({ code : 500, status : "error", message: error.message});
   }

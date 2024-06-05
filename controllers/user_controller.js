@@ -44,7 +44,7 @@ const addUser = async (req, res) => {
 const editUser = async (req, res) => {
   try {
     const user = await User.edit(req.params.id, req.body);
-    res.status(200).json({ code : 200, status : "edited", message: "User updated", data: user});
+    res.status(200).json({ code : 200, status : "edited", data: user});
   } catch (error) {
     res.status(500).json({ code : 500, status : "error", message: error.message});
   }
@@ -53,7 +53,7 @@ const editUser = async (req, res) => {
 const deleteUser = async (req, res) => {
   try {
     await User.delete(req.params.id);
-    res.status(200).json({ code : 200, status : "deleted", message: "User updated", data: req.params.id});
+    res.status(200).json({ code : 200, status : "deleted", data: req.params.id});
   } catch (error) {
     res.status(500).json({ code : 500, status : "error", message: error.message});
   }
