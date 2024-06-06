@@ -9,7 +9,8 @@ const {
   addUsahaFinancial,
   getFinancialById,
   editUsahaFinancial,
-  deleteUsahaFinancial
+  deleteUsahaFinancial,
+  getWeeklyFinancial
 } = require('../controllers/financial_controller')
 
 
@@ -17,6 +18,7 @@ const router = express.Router()
 
 router.get('/:usahaId/financial', getAllFinancialByUsahaId)
 router.get('/:usahaId/financial/:financialId', getFinancialById)
+router.get('/:usahaId/weekly', getWeeklyFinancial)
 router.get('/financial/:financialId', getFinancialById)
 
 router.post('/financial', addUsahaFinancial)

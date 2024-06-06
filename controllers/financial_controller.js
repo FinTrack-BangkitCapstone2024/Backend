@@ -1,3 +1,4 @@
+const { get } = require('firebase/database');
 const Financial =  require('../models/financial_model')
 
 const getAllFinancialByUsahaId = async (req, res) => {
@@ -45,6 +46,15 @@ const deleteUsahaFinancial = async (req, res) => {
   }
 }
 
+const getWeeklyFinancial = async (req, res) => {
+  try {
+    const items = await Financial.getWeeklyFinancial(req.params.usahaId);
+    res.status(200).json({code : 200, status : "success", data: items});
+  } catch (error) {
+    res.status(500).json({ code : 500, status : "error", message: error.message});
+  }
+}
+
 
 
 
@@ -53,5 +63,6 @@ module.exports = {
   addUsahaFinancial,
   getFinancialById,
   editUsahaFinancial,
-  deleteUsahaFinancial
+  deleteUsahaFinancial,
+  getWeeklyFinancial
 }
