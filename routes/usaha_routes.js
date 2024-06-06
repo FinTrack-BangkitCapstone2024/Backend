@@ -10,4 +10,6 @@ const sementara = () => {}
 router.get('/', getAllUsaha)
 router.get('/:usahaId', getUsaha)
 
+
+
 module.exports = router;

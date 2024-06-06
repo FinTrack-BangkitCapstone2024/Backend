@@ -7,6 +7,7 @@ class Model {
   constructor(collectionName){
     this.collectionName = collectionName
     this.collectionRef = collection(db, collectionName);
+    this.db = db;
 
   }
 

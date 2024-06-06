@@ -11,6 +11,7 @@ const getAllUsaha =  async (req, res) => {
 const getUsaha = async(req, res) => {
   try {
     const usaha = await Usaha.findById(req.params.usahaId)
+    
     if (usaha) {
       res.status(200).json({code : 200, status : "success", data: usaha});
     } else {
@@ -20,6 +21,8 @@ const getUsaha = async(req, res) => {
     res.status(500).json({ code : 500, status : "error", message: error.message});
   }
 }
+
+
 
 module.exports = {
   getAllUsaha,
