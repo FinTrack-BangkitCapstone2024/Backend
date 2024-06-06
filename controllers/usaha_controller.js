@@ -22,9 +22,19 @@ const getUsaha = async(req, res) => {
   }
 }
 
+const addUsaha = async (req, res) => {
+  try {
+    const usaha = await Usaha.add(req.body);
+    res.status(201).json({ code : 201, status : "created", data : {id: usaha.id} });
+  } catch (error) {
+    res.status(500).json({ code : 500, status : "error", message: error.message});
+  }
+}
+
 
 
 module.exports = {
   getAllUsaha,
-  getUsaha
+  getUsaha,
+  addUsaha,
 }

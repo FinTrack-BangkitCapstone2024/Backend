@@ -1,4 +1,4 @@
-const { getDocs, doc, getDoc } = require("firebase/firestore/lite");
+const { getDocs, doc, getDoc, addDoc, updateDoc } = require("firebase/firestore/lite");
 const Model = require("./model");
 
 class Usaha extends Model {
@@ -86,5 +86,20 @@ class Usaha extends Model {
       return ["not found"];
     }
   }
+
+  async add(body) {
+    const userRef = doc(this.db, "users", body.user_id);
+    const { user_id, ...restBody } = body;
+    const docRef = await addDoc(this.collectionRef, {user: userRef, balance: 0, logo_path: "logo.jpg", financials: [], ...restBody});
+    const id = docRef.id;
+    const updatedDocRef = await updateDoc(doc(this.db, this.collectionName, id), {
+      id: id,
+      ...body,
+    });
+    const item = await this.findById(id);
+    return item;
+  }
+
+
 }
 module.exports = new Usaha();
