@@ -42,7 +42,8 @@ class Financial extends Model {
   
     const snapshot = await getDocs(this.collectionRef);
     const items = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}));
-    const weeklyItems = [0,0,0,0,0,0,0]
+    const weeklyMasukan = [0,0,0,0,0,0,0]
+    const weeklyKeluaran = [0,0,0,0,0,0,0]
     console.log("items");
     console.log(items);
     items.forEach(item => {
@@ -50,11 +51,16 @@ class Financial extends Model {
       const itemDate = new Date(new Date(item.tanggal).getTime() + (wibOffset * 60000)) ;
       const index = (maximumDay.getDate() - itemDate.getDate()); 
       console.log(index);
-      if(index >= 0 && item.tipe == "masukan"){
-        weeklyItems[index] += parseInt(item.jumlah);
+      if(index >= 0){
+        if( item.tipe == "pengeluaran"){
+          weeklyKeluaran[index] += parseInt(item.jumlah);
+        }
+        if( item.tipe == "masukan"){
+          weeklyMasukan[index] += parseInt(item.jumlah);
+        }
       }
     });
-    // if(weeklyItems.length > 0) return weeklyItems;
+    // if(weeklyMasukan.length > 0) return weeklyMasukan;
     const hari = [];
     for (let i = 0; i < 7; i++) {
       const date = new Date(maximumDay);
@@ -62,7 +68,7 @@ class Financial extends Model {
       hari.push(this.namingDate(date.getDay()));
     }
     console.log(hari);
-    return {day: hari.reverse(), value: weeklyItems.reverse()};
+    return {day: hari.reverse(), masukan : weeklyMasukan.reverse(), pengeluaran : weeklyKeluaran.reverse()};
   }
 }
 
