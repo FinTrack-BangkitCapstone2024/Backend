@@ -35,7 +35,7 @@ class Usaha extends Model {
             return null;
           })
         );
-        
+
         return {
           id: document.id,
           user: userData,
@@ -47,6 +47,44 @@ class Usaha extends Model {
     if (items.length > 0) return items;
     return [];
   }
-}
 
+  async findById(id) {
+    const snapshot = await getDoc(doc(this.db, this.collectionName, id));
+    if (snapshot.exists()) {
+      const data = snapshot.data();
+      const { user, user_id, financials, ...restData } = data;
+
+      let userData = null;
+      const userId = data.user ? data.user.id : null;
+      if (userId) {
+        const userSnapshot = await getDoc(doc(this.db, "users", userId));
+        if (userSnapshot.exists()) {
+          userData = userSnapshot.data();
+        }
+      }
+
+      const financialsArray = financials ? financials : [];
+      const financialsData = await Promise.all(
+        financialsArray.map(async (financial) => {
+          const financialSnapshot = await getDoc(
+            doc(this.db, "financials", financial.id)
+          );
+          if (financialSnapshot.exists()) {
+            return { id: financialSnapshot.id, ...financialSnapshot.data() };
+          }
+          return null;
+        })
+      );
+
+      return {
+        id: snapshot.id,
+        user: userData,
+        financials: financialsData,
+        ...restData,
+      };
+    } else {
+      return ["not found"];
+    }
+  }
+}
 module.exports = new Usaha();
