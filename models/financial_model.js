@@ -27,7 +27,7 @@ class Financial extends Model {
     }
   }
 
-  async getWeeklyFinancial() {
+  async getWeeklyFinancial(id_usaha) {
     
     var now = new Date();
     var utc = now.getTime()
@@ -51,7 +51,8 @@ class Financial extends Model {
       const itemDate = new Date(new Date(item.tanggal).getTime() + (wibOffset * 60000)) ;
       const index = (maximumDay.getDate() - itemDate.getDate()); 
       console.log(index);
-      if(index >= 0){
+      console.log(item)
+      if(index >= 0 && item.usaha_id == id_usaha){
         if( item.tipe == "pengeluaran"){
           weeklyKeluaran[index] += parseInt(item.jumlah);
         }
