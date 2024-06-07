@@ -31,10 +31,18 @@ const addUsaha = async (req, res) => {
   }
 }
 
-
+const editUsaha = async (req, res) => {
+  try {
+    const usaha = await Usaha.edit(req.params.usahaId, req.body);
+    res.status(200).json({ code : 200, status : "edited", data: usaha});
+  } catch (error) {
+    res.status(500).json({ code : 500, status : "error", message: error.message});
+  }
+}
 
 module.exports = {
   getAllUsaha,
   getUsaha,
   addUsaha,
+  editUsaha
 }
