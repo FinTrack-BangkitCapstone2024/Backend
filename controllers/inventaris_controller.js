@@ -26,7 +26,7 @@ const getInventaris = async(req, res) => {
 }
 
 const addInventaris = async (req, res) => {
-  const { nama, jumlah } = req.body;
+  const { user_id, item_name,item_type,quantity,unit,description } = req.body;
   const file = req.file;
 
   if (!file) {
@@ -44,13 +44,18 @@ const addInventaris = async (req, res) => {
   });
 
   blobStream.on('finish', async () => {
-    const publicUrl = `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
+    const photo_url = `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
 
     const detailItem = 
     {
-      'nama' : nama,
-      'jumlah' : jumlah,
-      'url': publicUrl
+      "user_id": user_id,
+      "photo_url": photo_url,
+      "item_name": item_name,
+      "item_type": item_type,
+      "quantity": quantity,
+      "unit": unit,
+      "description": description
+  
     };
 
     try {
