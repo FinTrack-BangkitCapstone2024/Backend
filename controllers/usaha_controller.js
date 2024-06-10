@@ -40,9 +40,23 @@ const editUsaha = async (req, res) => {
   }
 }
 
+const getUsahaByOwner = async (req, res) => {
+  try {
+    const usaha = await Usaha.findBy('user_id', req.params.userId)
+    if (usaha) {
+      res.status(200).json({code : 200, status : "success", data: usaha});
+    } else {
+      res.status(500).json({ code : 404, status : "error", message: error.message});
+    }
+  } catch (error) {
+    res.status(500).json({ code : 500, status : "error", message: error.message});
+  }
+}
+
 module.exports = {
   getAllUsaha,
   getUsaha,
   addUsaha,
-  editUsaha
+  editUsaha,
+  getUsahaByOwner
 }
