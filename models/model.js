@@ -27,9 +27,19 @@ class Model {
     }
   }
 
+
+  async findAllBy(field, value){
+    const snapshot = await getDocs(this.collectionRef);
+    const items = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}));
+    const item = items.filter(item => item[field] == value)
+    if(item) return item;
+    return []
+  }
+
   async findBy(field, value){
     const snapshot = await getDocs(this.collectionRef);
     const items = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}));
+    console.log(items);
     const item = items.find(item => item[field] == value)
     if(item) return item;
     return []
