@@ -1,0 +1,408 @@
+{
+	"info": {
+		"_postman_id": "2e5e349a-a340-4c87-8eea-5b77f4854071",
+		"name": "Fintrack",
+		"description": "Ini adalah Backend dari FinTrack. FinTrack adalah aplikasi manajemen keuangan yang dilengkapi dengan fitur-fitur AI.\n\n**base URL :**\n\n[https://fintrack-424802.et.r.appspot.com/](https://fintrack-424802.et.r.appspot.com/docs/)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28840373"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Sign in with email",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"fajrigantengBanget@gmail.com\",\r\n    \"password\" : \"11111111\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url-public}}/api/auth/signInWithEmail",
+							"host": [
+								"{{url-public}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"signInWithEmail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register user with Email",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"indris@gmail.com\",\r\n    \"password\" : \"12345678\",\r\n    \"name\" : \"indris\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url-public}}/api/auth/signUpWithEmail",
+							"host": [
+								"{{url-public}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"signUpWithEmail"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Bagian authentikasi, user bisa login dan signup dengan Email dan Password"
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "Get All Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/users/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								""
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get One User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/users/{{userId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set('userId', '')"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\" : \"akuganteng\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/users/{{userId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/users/{{userId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseData = pm.response.json();\r",
+									"\r",
+									"pm.environment.set('userId', responseData.data.id);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"upan\",\r\n    \"email\" : \"upan@gmail.com\",\r\n    \"password\" : \"fajryyy\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Bagian data users, bisa create, read, update dan delete data users"
+		},
+		{
+			"name": "usaha",
+			"item": [
+				{
+					"name": "Get All Usaha",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/usaha/vECigkVTb8RdoKslDMvq",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"usaha",
+								"vECigkVTb8RdoKslDMvq"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Usaha",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/usaha/{{usahaId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"usaha",
+								"{{usahaId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Usaha",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nama\" : \"nama_usaha\",\r\n    \"user_id\" : \"3vWwbJO3jUG7pTFaqaEn\",\r\n    \"jenis\" : \"jenis_usaha\",\r\n    \"lokasi\" : {\r\n        \"alamat\" : \"alamat_usaha\",\r\n        \"kecamatan\" : \"kecamatan_usaha\",\r\n        \"kota\" : \"kota_usaha\",\r\n        \"provinsi\" : \"provinsi_usaha\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/usaha/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"usaha",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Service untuk mendapatkan usaha"
+		},
+		{
+			"name": "financials",
+			"item": [
+				{
+					"name": "Get usaha financials",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/usaha/{{usahaId}}/financial",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"usaha",
+								"{{usahaId}}",
+								"financial"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Financial By Id (1)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/usaha/financial/{{financialId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"usaha",
+								"financial",
+								"{{financialId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Financial By Id (2)",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Add Usaha Financial",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\" : \"Beli bahan pokok\",\r\n    \"jumlah\" : \"23000\",\r\n    \"tanggal\": \"2024-06-04T00:00:00+07:00\",\r\n    \"tipe\": \"pengeluaran\",\r\n    \"usaha_id\": \"vECigkVTb8RdoKslDMvq\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/usaha/financial/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"usaha",
+								"financial",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get Weekly Financial",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/usaha/{{usahaId}}/weekly",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"usaha",
+								"{{usahaId}}",
+								"weekly"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Service turunan dari \"usaha\" untuk mendapatkan finansial dari suatu usaha"
+		}
+	]
+}

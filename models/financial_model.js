@@ -71,6 +71,22 @@ class Financial extends Model {
     console.log(hari);
     return {day: hari.reverse(), masukan : weeklyMasukan.reverse(), pengeluaran : weeklyKeluaran.reverse()};
   }
+
+  async forecasting(image) {
+    const data = {
+      image: image
+    }
+    const docRef = await addDoc(this.collectionRef, data);
+    return docRef.id;
+  }
+
+  async loadModel(){
+    const snapshot = await getDocs(this.collectionRef);
+    const items = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}));
+    return items;
+  }
 }
+
+
 
 module.exports = new Financial();

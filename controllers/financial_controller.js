@@ -1,4 +1,5 @@
 const { get } = require('firebase/database');
+const Usaha = require('../models/usaha_model');
 const Financial =  require('../models/financial_model')
 
 const getAllFinancialByUsahaId = async (req, res) => {
@@ -22,6 +23,10 @@ const getFinancialById = async (req, res) => {
 const addUsahaFinancial = async (req, res) => {
   try {
     const financial = await Financial.add(req.body);
+    const usaha = await Usaha.findById(req.body.usaha_id);
+    usaha.financials.push({id: financial.id})
+    await Usaha.edit(req.body.usaha_id, usaha);
+
     res.status(201).json({ code : 201, status : "created", data : {id: financial.id} });
   } catch (error) {
     res.status(500).json({ code : 500, status : "error", message: error.message});
@@ -54,8 +59,6 @@ const getWeeklyFinancial = async (req, res) => {
     res.status(500).json({ code : 500, status : "error", message: error.message});
   }
 }
-
-
 
 
 module.exports = {
