@@ -68,8 +68,30 @@ async function deleteAllFinancialsExcept(financialException){
   }
   console.log("DONE")
 }
+// Menghapus semua financials dari usaha
+const usahaId = 'xx8UNi7Qy3DGwsUc3Fc6';
+async function deleteAllFinancialFromUsaha(usahaId){
+  let i = 0;
+  console.log("Memulai")
+  try {
+    const collectionRef = collection(db, 'usaha');
+    const snapshot = await getDocs(collectionRef);
+
+    for (const docSnapshot of snapshot.docs) {
+      const data = docSnapshot.data();
+      // if (data.usaha_id === usahaId) {
+        await deleteDoc(doc(db, 'usaha', docSnapshot.id));
+        console.log('No ',i++,' deleted', docSnapshot.id)
+      // }
+    }
+  } catch (error) {
+    console.log(error);
+  }
+  console.log("DONE")
+}
 
 // *** jalanin fungsi yagng diinginkan *** 
 // updateUsahaIdAttribute();
 // deleteAllUsahaExcept(usahaException);
-deleteAllFinancialsExcept(financialsException);
+// deleteAllFinancialsExcept(financialsException);
+deleteAllFinancialFromUsaha(usahaId);

@@ -289,6 +289,26 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get Usaha By User_id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/usaha/owner/3vWwbJO3jUG7pTFaqaEn",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"usaha",
+								"owner",
+								"3vWwbJO3jUG7pTFaqaEn"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"description": "Service untuk mendapatkan usaha"
@@ -403,6 +423,19 @@
 				}
 			],
 			"description": "Service turunan dari \"usaha\" untuk mendapatkan finansial dari suatu usaha"
+		},
+		{
+			"name": "inventaris",
+			"item": [
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }

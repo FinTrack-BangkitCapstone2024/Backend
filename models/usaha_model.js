@@ -90,7 +90,7 @@ class Usaha extends Model {
   async add(body) {
     const userRef = doc(this.db, "users", body.user_id);
     const { user_id, ...restBody } = body;
-    const docRef = await addDoc(this.collectionRef, {user: userRef, balance: 0, logo_path: "logo.jpg", financials: [], ...restBody});
+    const docRef = await addDoc(this.collectionRef, {user: userRef, balance: 0, logo_path: "logo.jpg", total_pengeluaran:0, total_pemasukan :0, financials: [], ...restBody});
     const id = docRef.id;
     const updatedDocRef = await updateDoc(doc(this.db, this.collectionName, id), {
       id: id,
