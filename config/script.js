@@ -79,10 +79,10 @@ async function deleteAllFinancialFromUsaha(usahaId) {
 
     for (const docSnapshot of snapshot.docs) {
       const data = docSnapshot.data();
-      if (data.usaha_id === usahaId) {
+      // if (data.usaha_id === usahaId) {
       await deleteDoc(doc(db, 'usaha', docSnapshot.id));
       console.log('No ', i++, ' deleted', docSnapshot.id)
-      }
+      // }
     }
   } catch (error) {
     console.log(error);

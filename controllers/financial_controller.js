@@ -121,13 +121,14 @@ const addUsahaFinancialFromFile = async (req, res) => {
           }
 
           await Usaha.edit(usaha_id, usaha);
-          res.status(201).json({ code: 201, status: "created", data: { message:"created", total_fianncial_data_created: i*2 } });
+          res.status(201).json({ code: 201, status: "created", data: { message:"created", total_fianncial_data_created: i*2, data_id: financials_id } });
         } catch (error) {
           if (financials_id.length > 0) {
             for (const id of financials_id) {
               await Financial.delete(id);
             }
           }
+          res.status(500).json({ code: 500, status: "error", message: error.message });
           console.log("Error ketika mengakses: ", error.message)
         }
       })
