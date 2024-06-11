@@ -73,7 +73,6 @@ class Financial extends Model {
   }
 
   async forecasting() {
-   
     const docRef = await addDoc(this.collectionRef, data);
     return docRef.id;
   }
