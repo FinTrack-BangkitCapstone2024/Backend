@@ -119,7 +119,6 @@ const addUsahaFinancialFromFile = async (req, res) => {
             usaha.balance -= parseInt(pengeluaran);
             console.log("Data ke-", i, " berhasil ditambahkan")
           }
-          await usaha.save();
           await Usaha.edit(usaha_id, usaha);
           res.status(201).json({ code: 201, status: "created", data: { message:"created", total_fianncial_data_created: i*2, data_id: financials_id } });
         } catch (error) {
