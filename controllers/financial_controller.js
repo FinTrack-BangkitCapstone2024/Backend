@@ -79,7 +79,7 @@ const addUsahaFinancialFromFile = async (req, res) => {
     const file = req.file;
     if (!file) {
       return res.status(400).json({ code: 400, status: "error", message: "No file uploaded." });
-    } else if (file.mimetype !== 'text/csv') {
+    } else if (file.mimetype != 'text/csv') {
       return res.status(400).json({ code: 400, status: "error", message: "File must be in CSV format." });
     }
 
