@@ -74,6 +74,7 @@ const getWeeklyFinancial = async (req, res) => {
 }
 
 const addUsahaFinancialFromFile = async (req, res) => {
+  const financials_id = [];
   try {
     let i = 0;
     const file = req.file;
@@ -84,7 +85,6 @@ const addUsahaFinancialFromFile = async (req, res) => {
     }
 
     const data_csv = [];
-    const financials_id = [];
     const readStream = new stream.PassThrough();
     readStream.end(file.buffer);
 
@@ -109,7 +109,7 @@ const addUsahaFinancialFromFile = async (req, res) => {
             const data_masuk = await Financial.add({ usaha_id: req.body.usaha_id, tipe: 'pemasukan', jumlah: pemasukan, tanggal, title: title_pemasukan, description: deskripsi_pemasukan });
             await usaha.financials.push({ id: data_masuk.id })
             financials_id.push(data_masuk.id)
-            usaha.total_pengeluaran += parseInt(pemasukan);
+            usaha.total_pemasukan += parseInt(pemasukan);
             usaha.balance += parseInt(pemasukan);
             
             const data_keluar = await Financial.add({ usaha_id: req.body.usaha_id, tipe: 'pengeluaran', jumlah: pengeluaran, tanggal, title: title_pengeluaran, description: deskripsi_pengeluaran });
@@ -119,7 +119,7 @@ const addUsahaFinancialFromFile = async (req, res) => {
             usaha.balance -= parseInt(pengeluaran);
             console.log("Data ke-", i, " berhasil ditambahkan")
           }
-
+          await usaha.save();
           await Usaha.edit(usaha_id, usaha);
           res.status(201).json({ code: 201, status: "created", data: { message:"created", total_fianncial_data_created: i*2, data_id: financials_id } });
         } catch (error) {
