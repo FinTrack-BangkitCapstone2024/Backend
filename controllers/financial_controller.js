@@ -1,6 +1,7 @@
-const { get } = require('firebase/database');
 const Usaha = require('../models/usaha_model');
 const Financial = require('../models/financial_model')
+const stream = require('stream')
+const csvParser = require('csv-parser')
 
 const getAllFinancialByUsahaId = async (req, res) => {
   try {
@@ -72,6 +73,75 @@ const getWeeklyFinancial = async (req, res) => {
   }
 }
 
+const addUsahaFinancialFromFile = async (req, res) => {
+  try {
+    let i = 0;
+    const file = req.file;
+    if (!file) {
+      return res.status(400).json({ code: 400, status: "error", message: "No file uploaded." });
+    } else if (file.mimetype !== 'text/csv') {
+      return res.status(400).json({ code: 400, status: "error", message: "File must be in CSV format." });
+    }
+
+    const data_csv = [];
+    const financials_id = [];
+    const readStream = new stream.PassThrough();
+    readStream.end(file.buffer);
+
+    readStream
+      .pipe(csvParser())
+      .on('data', (data) => {
+        data_csv.push(data);
+      })
+      .on('end', async () => {
+        try {
+          const { usaha_id } = req.body;
+          console.log(usaha_id)
+          const usaha = await Usaha.findById(usaha_id);
+          if (!usaha) {
+            return res.status(404).json({ code: 404, status: "error", message: "Usaha not found." });
+          }
+
+          for (const record of data_csv) {
+            i++;
+            const { tanggal, pemasukan, pengeluaran, deskripsi_pemasukan, deskripsi_pengeluaran, title_pengeluaran, title_pemasukan } = record;
+
+            const data_masuk = await Financial.add({ usaha_id: req.body.usaha_id, tipe: 'pemasukan', jumlah: pemasukan, tanggal, title: title_pemasukan, deskripsi: deskripsi_pemasukan });
+            await usaha.financials.push({ id: data_masuk.id })
+            financials_id.push(data_masuk.id)
+            usaha.total_pengeluaran += pemasukan;
+            usaha.balance -= pemasukan;
+            
+            const data_keluar = await Financial.add({ usaha_id: req.body.usaha_id, tipe: 'pengeluaran', jumlah: pengeluaran, tanggal, title: title_pengeluaran, deskripsi: deskripsi_pengeluaran });
+            await usaha.financials.push({ id: data_keluar.id })
+            financials_id.push(data_keluar.id)
+            usaha.total_pengeluaran += pengeluaran;
+            usaha.balance -= pengeluaran;
+            console.log("Data ke-", i, " berhasil ditambahkan")
+          }
+
+          await Usaha.edit(usaha_id, usaha);
+          res.status(201).json({ code: 201, status: "created", data: { message:"created", total_fianncial_data_created: i*2 } });
+        } catch (error) {
+          if (financials_id.length > 0) {
+            for (const id of financials_id) {
+              await Financial.delete(id);
+            }
+          }
+          console.log("Error ketika mengakses: ", error.message)
+        }
+      })
+  } catch (error) {
+    if (financials_id.length > 0) {
+      for (const id of financials_id) {
+        await Financial.delete(id);
+      }
+    }
+    res.status(500).json({ code: 500, status: "error", message: error.message });
+  }
+
+}
+
 
 module.exports = {
   getAllFinancialByUsahaId,
@@ -79,5 +149,6 @@ module.exports = {
   getFinancialById,
   editUsahaFinancial,
   deleteUsahaFinancial,
-  getWeeklyFinancial
+  getWeeklyFinancial,
+  addUsahaFinancialFromFile
 }

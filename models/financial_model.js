@@ -56,7 +56,7 @@ class Financial extends Model {
         if( item.tipe == "pengeluaran"){
           weeklyKeluaran[index] += parseInt(item.jumlah);
         }
-        if( item.tipe == "masukan"){
+        if( item.tipe == "pemasukan"){
           weeklyMasukan[index] += parseInt(item.jumlah);
         }
       }
