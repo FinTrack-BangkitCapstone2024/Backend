@@ -72,10 +72,8 @@ class Financial extends Model {
     return {day: hari.reverse(), masukan : weeklyMasukan.reverse(), pengeluaran : weeklyKeluaran.reverse()};
   }
 
-  async forecasting(image) {
-    const data = {
-      image: image
-    }
+  async forecasting() {
+   
     const docRef = await addDoc(this.collectionRef, data);
     return docRef.id;
   }

@@ -106,13 +106,13 @@ const addUsahaFinancialFromFile = async (req, res) => {
             i++;
             const { tanggal, pemasukan, pengeluaran, deskripsi_pemasukan, deskripsi_pengeluaran, title_pengeluaran, title_pemasukan } = record;
 
-            const data_masuk = await Financial.add({ usaha_id: req.body.usaha_id, tipe: 'pemasukan', jumlah: pemasukan, tanggal, title: title_pemasukan, deskripsi: deskripsi_pemasukan });
+            const data_masuk = await Financial.add({ usaha_id: req.body.usaha_id, tipe: 'pemasukan', jumlah: pemasukan, tanggal, title: title_pemasukan, description: deskripsi_pemasukan });
             await usaha.financials.push({ id: data_masuk.id })
             financials_id.push(data_masuk.id)
             usaha.total_pengeluaran += pemasukan;
             usaha.balance -= pemasukan;
             
-            const data_keluar = await Financial.add({ usaha_id: req.body.usaha_id, tipe: 'pengeluaran', jumlah: pengeluaran, tanggal, title: title_pengeluaran, deskripsi: deskripsi_pengeluaran });
+            const data_keluar = await Financial.add({ usaha_id: req.body.usaha_id, tipe: 'pengeluaran', jumlah: pengeluaran, tanggal, title: title_pengeluaran, description: deskripsi_pengeluaran });
             await usaha.financials.push({ id: data_keluar.id })
             financials_id.push(data_keluar.id)
             usaha.total_pengeluaran += pengeluaran;
@@ -143,6 +143,16 @@ const addUsahaFinancialFromFile = async (req, res) => {
 
 }
 
+const forecasting = async (req, res) => {
+  try {
+    const items = await Financial.forecasting(req.params.usahaId);
+    res.status(200).json({ code: 200, status: "success", data: items });
+  } catch (error) {
+    res.status(500).json({ code: 500, status: "error", message: error.message });
+  }
+
+}
+
 
 module.exports = {
   getAllFinancialByUsahaId,
@@ -151,5 +161,6 @@ module.exports = {
   editUsahaFinancial,
   deleteUsahaFinancial,
   getWeeklyFinancial,
-  addUsahaFinancialFromFile
+  addUsahaFinancialFromFile,
+  forecasting
 }
