@@ -25,7 +25,7 @@ router.get('/:usahaId/financial', getAllFinancialByUsahaId)
 router.get('/:usahaId/financial/:financialId', getFinancialById)
 router.get('/:usahaId/weekly', getWeeklyFinancial)
 router.get('/financial/:financialId', getFinancialById)
-router.get('/forecasting', forecasting);
+router.get('/:usahaId/forecasting', forecasting);
 
 router.post('/financial', addUsahaFinancial)
 router.post('/financial/csv', upload.single("file") ,addUsahaFinancialFromFile)

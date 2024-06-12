@@ -26,7 +26,7 @@ const addUsahaFinancial = async (req, res) => {
     const { tipe, jumlah } = req.body;
     const financial = await Financial.add(req.body);
     const usaha = await Usaha.findById(req.body.usaha_id);
-    usaha.financials.push({ id: financial.id })
+    // usaha.financials.push({ id: financial.id })
 
 
 
@@ -107,19 +107,18 @@ const addUsahaFinancialFromFile = async (req, res) => {
             const { tanggal, pemasukan, pengeluaran, deskripsi_pemasukan, deskripsi_pengeluaran, title_pengeluaran, title_pemasukan } = record;
 
             const data_masuk = await Financial.add({ usaha_id: req.body.usaha_id, tipe: 'pemasukan', jumlah: pemasukan, tanggal, title: title_pemasukan, description: deskripsi_pemasukan });
-            await usaha.financials.push({ id: data_masuk.id })
+            // await usaha.financials.push({ id: data_masuk.id })
             financials_id.push(data_masuk.id)
             usaha.total_pemasukan += parseInt(pemasukan);
-            usaha.balance += parseInt(pemasukan);
             
             const data_keluar = await Financial.add({ usaha_id: req.body.usaha_id, tipe: 'pengeluaran', jumlah: pengeluaran, tanggal, title: title_pengeluaran, description: deskripsi_pengeluaran });
-            await usaha.financials.push({ id: data_keluar.id })
+            // await usaha.financials.push({ id: data_keluar.id })
             financials_id.push(data_keluar.id)
             usaha.total_pengeluaran += parseInt(pengeluaran);
-            usaha.balance -= parseInt(pengeluaran);
             console.log("Data ke-", i, " berhasil ditambahkan")
-          }
-          await Usaha.edit(usaha_id, usaha);
+            }
+            usaha.balance = parseInt(usaha.total_pemasukan)-parseInt(usaha.total_pengeluaran);
+            await Usaha.edit(usaha_id, usaha);
           res.status(201).json({ code: 201, status: "created", data: { message:"created", total_fianncial_data_created: i*2, data_id: financials_id } });
         } catch (error) {
           if (financials_id.length > 0) {
