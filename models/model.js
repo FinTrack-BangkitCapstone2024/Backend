@@ -28,12 +28,31 @@ class Model {
     return null;
   }
 
-  async findAllBy(field, value) {
+  async findAllBy(field, value, sortField = null, sortOrder = 'asc') {
     const snapshot = await getDocs(this.collectionRef);
-    const items = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-    const item = items.filter((item) => item[field] == value);
-    if (item) return item;
-    return null;
+    let items = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    items = items.filter((item) => item[field] == value);
+
+    if (sortField) {
+      items.sort((a,b) => {
+        let a_val = a[sortField];
+        let b_val = b[sortField];
+        if(sortField == 'tanggal') {
+          a_val = new Date(a[sortField])
+          b_val = new Date(b[sortField]) 
+        }else if(sortField == 'jumlah') {
+          a_val = parseInt(a[sortField])
+          b_val = parseInt(b[sortField])
+        }
+        if (sortOrder == 'asc') {
+          return a_val > b_val ? 1 : -1;
+        }else{
+          return a_val < b_val ? 1 : -1;
+        }
+      })
+    }
+
+    return items.length > 0 ? items : null;
   }
 
   async findBy(field, value) {

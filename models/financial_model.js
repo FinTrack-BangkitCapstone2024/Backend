@@ -135,7 +135,7 @@ class Financial extends Model {
       // Make prediction
       let prediction = model.predict(xInputTensor);
       prediction = prediction.arraySync()[0]; // Convert tensor to array
-
+u 
       // Store predicted values
       futureSalesAndSpend.push(prediction);
 
