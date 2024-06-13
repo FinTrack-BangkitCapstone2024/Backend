@@ -1,9 +1,9 @@
-const Model = require('./model')
+const Model = require('./model');
 
 class User extends Model {
   constructor() {
-    super('users')
+    super('users');
   }
 }
 
-module.exports = new User()
+module.exports = new User();

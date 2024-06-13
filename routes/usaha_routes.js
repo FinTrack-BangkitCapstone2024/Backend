@@ -1,20 +1,14 @@
-const express = require('express')
-const router = express.Router()
-const {
-  getUsaha,
-  getUsahaByOwner,
-  getAllUsaha,
-  addUsaha,
-  editUsaha
-} = require('../controllers/usaha_controller')
+const express = require('express');
 
-const sementara = () => {}
+const router = express.Router();
+const usaha_controller = require('../controllers/usaha_controller');
 
-router.get('/', getAllUsaha)
-router.get('/:usahaId', getUsaha)
-router.get('/owner/:userId', getUsahaByOwner)
-router.post('/', addUsaha)
-router.put('/:usahaId', editUsaha)
+const sementara = () => {};
 
+router.get('/', usaha_controller.getAllUsaha);
+router.get('/:usahaId', usaha_controller.getUsaha);
+router.get('/owner/:userId', usaha_controller.getUsahaByOwner);
+router.post('/', usaha_controller.addUsaha);
+router.put('/:usahaId', usaha_controller.editUsaha);
 
 module.exports = router;

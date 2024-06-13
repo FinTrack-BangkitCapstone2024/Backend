@@ -1,35 +1,23 @@
-const express = require('express')
-
-const sementara = () => {
-  
-};
-
-const {
-  getAllFinancialByUsahaId, 
-  addUsahaFinancial,
-  getFinancialById,
-  editUsahaFinancial,
-  deleteUsahaFinancial,
-  getWeeklyFinancial,
-  addUsahaFinancialFromFile,
-  forecasting
-} = require('../controllers/financial_controller')
-
+const express = require('express');
 
 const multer = require('multer');
-const upload = multer({storage:multer.memoryStorage()})
+const financial_controller = require('../controllers/financial_controller');
 
-const router = express.Router()
+const upload = multer({ storage: multer.memoryStorage() });
 
-router.get('/:usahaId/financial', getAllFinancialByUsahaId)
-router.get('/:usahaId/financial/:financialId', getFinancialById)
-router.get('/:usahaId/weekly', getWeeklyFinancial)
-router.get('/financial/:financialId', getFinancialById)
-router.get('/:usahaId/forecasting', forecasting);
+const router = express.Router();
 
-router.post('/financial', addUsahaFinancial)
-router.post('/financial/csv', upload.single("file") ,addUsahaFinancialFromFile)
-router.put('/:usahaId/financial/:financialId', editUsahaFinancial)
-router.delete('/:usahaId/financial/:financialId', deleteUsahaFinancial)
+router.get('/:usahaId/financial', financial_controller.getAllFinancialByUsahaId);
+router.get('/:usahaId/financial/:financialId', financial_controller.getFinancialById);
+router.get('/:usahaId/weekly', financial_controller.getWeeklyFinancial);
+router.get('/financial/:financialId', financial_controller.getFinancialById);
+router.get('/:usahaId/forecasting', financial_controller.forecasting);
 
-module.exports = router
+router.post('/financial', financial_controller.addUsahaFinancial);
+router.post('/financial/csv', upload.single('file'), financial_controller.addUsahaFinancialFromFile);
+
+router.put('/:usahaId/financial/:financialId', financial_controller.editUsahaFinancial);
+
+router.delete('/:usahaId/financial/:financialId', financial_controller.deleteUsahaFinancial);
+
+module.exports = router;

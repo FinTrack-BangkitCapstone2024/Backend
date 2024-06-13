@@ -1,15 +1,12 @@
-const express = require('express')
-const { 
-  signInWithEmail,
-  createUserWithEmail,
-  test
- } = require('../controllers/auth_controller')
+const express = require('express');
+const auth_controller = require('../controllers/auth_controller');
 
-const router = express.Router()
+const { signInValidationRules, validate } = require('./validator');
 
+const router = express.Router();
 
-router.post('/signInWithEmail', signInWithEmail )
-router.post('/signUpWithEmail', createUserWithEmail)
-// router.post('/signInWithEmailAndPassword', test )
+router.post('/signInWithEmail', signInValidationRules(), validate, auth_controller.signInWithEmail);
+router.post('/signUpWithEmail', auth_controller.createUserWithEmail);
+
 
 module.exports = router;

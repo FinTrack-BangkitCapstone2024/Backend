@@ -269,7 +269,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nama\" : \"nama_usaha\",\r\n    \"user_id\" : \"3vWwbJO3jUG7pTFaqaEn\",\r\n    \"jenis\" : \"jenis_usaha\",\r\n    \"lokasi\" : {\r\n        \"alamat\" : \"alamat_usaha\",\r\n        \"kecamatan\" : \"kecamatan_usaha\",\r\n        \"kota\" : \"kota_usaha\",\r\n        \"provinsi\" : \"provinsi_usaha\"\r\n    }\r\n}",
+							"raw": "{\r\n    \"nama\" : \"nama_usaha\",\r\n    \"userId\" : \"3vWwbJO3jUG7pTFaqaEn\",\r\n    \"jenis\" : \"jenis_usaha\",\r\n    \"lokasi\" : {\r\n        \"alamat\" : \"alamat_usaha\",\r\n        \"kecamatan\" : \"kecamatan_usaha\",\r\n        \"kota\" : \"kota_usaha\",\r\n        \"provinsi\" : \"provinsi_usaha\"\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -291,7 +291,7 @@
 					"response": []
 				},
 				{
-					"name": "Get Usaha By User_id",
+					"name": "Get Usaha By userId",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -371,7 +371,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"description\" : \"Beli bahan pokok\",\r\n    \"jumlah\" : \"23000\",\r\n    \"tanggal\": \"2024-06-04T00:00:00+07:00\",\r\n    \"tipe\": \"pengeluaran\",\r\n    \"usaha_id\": \"vECigkVTb8RdoKslDMvq\"\r\n}",
+							"raw": "{\r\n    \"description\" : \"Beli bahan pokok\",\r\n    \"jumlah\" : \"23000\",\r\n    \"tanggal\": \"2024-06-04T00:00:00+07:00\",\r\n    \"tipe\": \"pengeluaran\",\r\n    \"usahaId\": \"vECigkVTb8RdoKslDMvq\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

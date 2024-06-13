@@ -1,23 +1,19 @@
-const express = require('express')
-const router = express.Router()
-const multer = require('multer');
-const {
-  getAllInventaris,
-  getInventaris,
-  addInventaris,
-  editInventaris
-} = require('../controllers/inventaris_controller')
+const express = require('express');
 
-const sementara = () => {}
+const router = express.Router();
+const multer = require('multer');
+const inventaris_controller = require('../controllers/inventaris_controller');
+
+const sementara = () => {};
 
 const upload = multer({
   storage: multer.memoryStorage(),
-  limits: { fileSize: 5 * 1024 * 1024 } // limit file size to 5MB
+  limits: { fileSize: 5 * 1024 * 1024 }, // limit file size to 5MB
 });
 
-router.get('/:usaha/inventaris', getAllInventaris)
-router.get('/:usaha/inventaris/:inventarisId', getInventaris)
-router.post('/', upload.single('file'),addInventaris)
-router.put('/:usaha/inventaris/:inventarisId', editInventaris)
+router.get('/:usaha/inventaris', inventaris_controller.getAllInventaris);
+router.get('/:usaha/inventaris/:inventarisId', inventaris_controller.getInventaris);
+router.post('/', upload.single('file'), inventaris_controller.addInventaris);
+router.put('/:usaha/inventaris/:inventarisId', inventaris_controller.editInventaris);
 
 module.exports = router;
