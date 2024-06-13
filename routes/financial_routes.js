@@ -13,6 +13,7 @@ router.get('/:usahaId/financial/:financialId', financial_controller.getFinancial
 router.get('/:usahaId/weekly', financial_controller.getWeeklyFinancial);
 router.get('/financial/:financialId', financial_controller.getFinancialById);
 router.get('/:usahaId/forecasting', financial_controller.forecasting);
+router.get('/:usahaId/laporan', financial_controller.getLaporanHariIni);
 
 router.post('/financial', validator.financialValidationRules(), validator.validate, financial_controller.addUsahaFinancial);
 router.post('/financial/csv', upload.single('file'), financial_controller.addUsahaFinancialFromFile);

@@ -156,6 +156,66 @@ const financial_controller = {
       res.status(500).json({ code: 500, status: 'error', message: error.message });
     }
   },
+
+  getLaporanHariIni : async(req, res) => {
+    try {
+      const financials = await Financial.findAllBy('usaha_id', req.params.usahaId, 'tanggal', 'desc');
+      let pemasukan_terbaru = 0;
+      let pengeluaran_terbaru = 0;
+      let pemasukan_sebelum_terbaru = 0;
+      let pengeluaran_sebelum_terbaru = 0;
+      const daftar_tanggal = [...new Set(financials.map(item => item.tanggal))];
+      console.log(daftar_tanggal);
+
+      
+      const tanggal_terbaru = daftar_tanggal[0];
+      const tanggal_sebelum_terbaru = daftar_tanggal[1];
+
+      for (const financial of financials) {
+        if (financial.tanggal == tanggal_terbaru) {
+          if (financial.tipe === 'pemasukan') {
+            pemasukan_terbaru += parseInt(financial.jumlah, 10);
+          } else {
+            pengeluaran_terbaru += parseInt(financial.jumlah, 10);
+          }
+        } else if (financial.tanggal == tanggal_sebelum_terbaru) {
+          if (financial.tipe === 'pemasukan') {
+            pemasukan_sebelum_terbaru += parseInt(financial.jumlah, 10);
+          } else {
+            pengeluaran_sebelum_terbaru += parseInt(financial.jumlah, 10);
+          }
+        }
+      }
+      
+      const pemasukan_persentase = pemasukan_sebelum_terbaru !== 0
+        ? ((pemasukan_terbaru - pemasukan_sebelum_terbaru) / pemasukan_sebelum_terbaru * 100).toFixed(2)
+        : 100;
+      const pengeluaran_persentase = pengeluaran_sebelum_terbaru !== 0
+        ? ((pengeluaran_terbaru - pengeluaran_sebelum_terbaru) / pengeluaran_sebelum_terbaru * 100).toFixed(2)
+        : 100;
+      const pemasukan_selisih = pemasukan_terbaru - pemasukan_sebelum_terbaru;
+      const pengeluaran_selisih = pengeluaran_terbaru - pengeluaran_sebelum_terbaru;
+
+      const data ={
+        pemasukan:{
+          jumlah: pemasukan_terbaru,
+          persentase: pemasukan_persentase,
+          selisih: pemasukan_selisih,
+          jumlah_sebelum: pemasukan_sebelum_terbaru,
+        },
+        pengeluaran:{
+          jumlah: pengeluaran_terbaru,
+          persentase: pengeluaran_persentase,
+          selisih: pengeluaran_selisih,
+          jumlah_sebelum: pengeluaran_sebelum_terbaru,
+        },
+      }
+      
+      res.status(200).json({ code: 200, status: 'success', data });
+    } catch (error) {
+      res.status(500).json({ code: 500, status: 'error', message: error.message });
+    }
+  }
 };
 
 module.exports = financial_controller;
