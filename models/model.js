@@ -58,6 +58,7 @@ class Model {
     if (oldUser.length == 0) {
       throw new Error('User not found');
     }
+    console.log("body", body);
     await updateDoc(doc(db, this.collectionName, id), body);
     return await this.findById(id);
   }

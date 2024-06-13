@@ -35,7 +35,7 @@ class Usaha extends Model {
       }),
     );
     if (items.length > 0) return items;
-    return [];
+    return null;
   }
 
   async findById(id) {
@@ -75,7 +75,7 @@ class Usaha extends Model {
         ...restData,
       };
     }
-    return ['not found'];
+    return null;
   }
 
   async add(body) {

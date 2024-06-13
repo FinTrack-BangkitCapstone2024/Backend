@@ -24,20 +24,24 @@ const financial_controller = {
 
   addUsahaFinancial: async (req, res) => {
     try {
-      const { tipe, jumlah } = req.body;
-      const financial = await Financial.add(req.body);
+      const { tipe, jumlah, usaha_id } = req.body;
       const usaha = await Usaha.findById(req.body.usaha_id);
-      // usaha.financials.push({ id: financial.id })
-
-      if (tipe == 'pengeluaran') {
-        usaha.total_pengeluaran += jumlah;
-        usaha.balance -= jumlah;
-      } else {
-        usaha.total_pemasukan += jumlah;
-        usaha.balance += jumlah;
-      }
-
-      await Usaha.edit(req.body.usaha_id, usaha);
+      if (!usaha) {
+        return res.status(404).json({ code: 404, status: 'error', message: 'Usaha not found.' });
+        }
+        const financial = await Financial.add(req.body);
+        // usaha.financials.push({ id: financial.id })
+        const jumlah_int = parseInt(jumlah)
+        if (tipe == 'pengeluaran') {
+          usaha.total_pengeluaran += jumlah_int;
+          usaha.balance -= jumlah_int;
+          } else {
+            usaha.total_pemasukan += jumlah_int;
+            usaha.balance += jumlah_int;
+            }
+            
+            
+            await Usaha.edit(req.body.usaha_id, usaha);
 
       res.status(201).json({ code: 201, status: 'created', data: { id: financial.id } });
     } catch (error) {
