@@ -18,7 +18,7 @@ const validator = {
     body('jumlah').isNumeric().withMessage('Jumlah must be a number').notEmpty().withMessage('Jumlah must not be empty'),
     body('tipe').isIn(['pemasukan',  'pengeluaran']).withMessage('Tipe must be pemasukan or pengeluaran'),
     body('usaha_id').notEmpty().withMessage('Usaha ID must not be empty'),
-    body('deskripsi').notEmpty().withMessage('Deskripsi must not be empty'),
+    body('description').notEmpty().withMessage('description must not be empty'),
   ],
 
   usahaValidationRules: () => [
