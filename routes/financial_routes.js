@@ -11,6 +11,7 @@ const router = express.Router();
 router.get('/:usahaId/financial', financial_controller.getAllFinancialByUsahaId);
 router.get('/:usahaId/financial/:financialId', financial_controller.getFinancialById);
 router.get('/:usahaId/weekly', financial_controller.getWeeklyFinancial);
+router.get('/:usahaId/monthly', financial_controller.getMonthlyFinancial);
 router.get('/financial/:financialId', financial_controller.getFinancialById);
 router.get('/:usahaId/forecasting', financial_controller.forecasting);
 router.get('/:usahaId/laporan', financial_controller.getLaporanHariIni);

@@ -148,6 +148,43 @@ u
 
     return futureSalesAndSpend;
   }
+
+  async getMonthlyFinancial(id_usaha) {
+    const now = new Date();
+    const utc = now.getTime();
+    const wibOffset = 420;
+
+    const wib = utc + (wibOffset * 60000);
+
+    const maximumDay = new Date(wib);
+    const minimumDay = new Date(wib);
+
+    minimumDay.setDate(maximumDay.getDate() - 30);
+
+    const snapshot = await getDocs(this.collectionRef);
+    const items = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    const monthlyMasukan = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    const monthlyKeluaran = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    items.forEach((item) => {
+      const itemDate = new Date(new Date(item.tanggal).getTime() + (wibOffset * 60000));
+      const index = (maximumDay.getMonth() - itemDate.getMonth());
+      if (index >= 0 && item.usaha_id == id_usaha) {
+        if (item.tipe == 'pengeluaran') {
+          monthlyKeluaran[index] += parseInt(item.jumlah);
+        }
+        if (item.tipe == 'pemasukan') {
+          monthlyMasukan[index] += parseInt(item.jumlah);
+        }
+      }
+    });
+    const bulan = [];
+    for (let i = 0; i < 12; i++) {
+      const date = new Date(maximumDay);
+      date.setMonth(maximumDay.getMonth() - i);
+      bulan.push(date.toLocaleString('default', { month: 'long' }));
+    }
+    return { bulan: bulan.reverse(), masukan: monthlyMasukan.reverse(), pengeluaran: monthlyKeluaran.reverse() };
+  }
 }
 
 module.exports = new Financial();
