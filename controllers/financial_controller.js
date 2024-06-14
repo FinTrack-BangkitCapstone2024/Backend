@@ -159,7 +159,8 @@ const financial_controller = {
 
   getLaporanHariIni : async(req, res) => {
     try {
-      const financials = await Financial.findAllBy('usaha_id', req.params.usahaId, 'tanggal', 'desc');
+      const {usahaId} = req.params.usahaId
+      const financials = await Financial.findAllBy('usaha_id', usahaId, 'tanggal', 'desc');
       let pemasukan_terbaru = 0;
       let pengeluaran_terbaru = 0;
       let pemasukan_sebelum_terbaru = 0;
@@ -196,6 +197,7 @@ const financial_controller = {
       const pemasukan_selisih = pemasukan_terbaru - pemasukan_sebelum_terbaru;
       const pengeluaran_selisih = pengeluaran_terbaru - pengeluaran_sebelum_terbaru;
 
+     
       const data ={
         pemasukan:{
           jumlah: pemasukan_terbaru,
@@ -220,6 +222,32 @@ const financial_controller = {
   getMonthlyFinancial : async(req, res) => {
     try {
       const items = await Financial.getMonthlyFinancial(req.params.usahaId);
+      res.status(200).json({ code: 200, status: 'success', data: items });
+    } catch (error) {
+      res.status(500).json({ code: 500, status: 'error', message: error.message });
+    }
+  },
+
+  getYearlyFinancial : async (req, res) => {
+    try{
+      const items = await Financial.getYearlyFinancial(req.params.usahaId);
+      res.status(200).json({ code: 200, status: 'success', data: items });
+    } catch (error) {
+      res.status(500).json({ code: 500, status: 'error', message: error.message });
+    }
+  },
+
+  getFinancialAnalisys : async(req, res) => {
+    try{
+      const usahaId = req.params.usahaId
+      const data_weekly = await Financial.getWeeklyFinancial(usahaId);
+      const data_monthly = await Financial.getMonthlyFinancial(usahaId);
+      const data_yearly = await Financial.getYearlyFinancial(usahaId);
+      items = {
+        weekly : data_weekly,
+        monthly : data_monthly,
+        yearly : data_yearly
+      }
       res.status(200).json({ code: 200, status: 'success', data: items });
     } catch (error) {
       res.status(500).json({ code: 500, status: 'error', message: error.message });

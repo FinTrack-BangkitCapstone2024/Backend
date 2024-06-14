@@ -5,6 +5,7 @@ const {
 
 const dotenv = require('dotenv');
 const Model = require('./model');
+const { getYearlyFinancial } = require('../controllers/financial_controller');
 
 dotenv.config();
 
@@ -185,7 +186,46 @@ u
     }
     return { bulan: bulan.reverse(), masukan: monthlyMasukan.reverse(), pengeluaran: monthlyKeluaran.reverse() };
   }
+  async getYearlyFinancial(id_usaha) {  
+    const now = new Date();
+    const utc = now.getTime();
+    const wibOffset = 420;
+
+    const wib = utc + (wibOffset * 60000);
+
+    const maximumDay = new Date(wib);
+    const minimumDay = new Date(wib);
+
+    minimumDay.setDate(maximumDay.getDate() - 365);
+
+    const snapshot = await getDocs(this.collectionRef);
+    const items = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    const yearlyMasukan = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    const yearlyKeluaran = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    items.forEach((item) => {
+      const itemDate = new Date(new Date(item.tanggal).getTime() + (wibOffset * 60000));
+      const index = (maximumDay.getFullYear() - itemDate.getFullYear());
+      if (index >= 0 && item.usaha_id == id_usaha) {
+        if (item.tipe == 'pengeluaran') {
+          yearlyKeluaran[index] += parseInt(item.jumlah);
+        }
+        if (item.tipe == 'pemasukan') {
+          yearlyMasukan[index] += parseInt(item.jumlah);
+        }
+      }
+    });
+    const tahun = [];
+    for (let i = 0; i < 10; i++) {
+      const date = new Date(maximumDay);
+      date.setFullYear(maximumDay.getFullYear() - i);
+      tahun.push(date.getFullYear());
+    }
+    return { tahun: tahun.reverse(), masukan: yearlyMasukan.reverse(), pengeluaran: yearlyKeluaran.reverse() };
+  }
+
+ 
 }
+
 
 module.exports = new Financial();
 
