@@ -47,12 +47,12 @@ const usaha_controller = {
         res.status(404).json({ code: 404, status: 'error', message: "user tidak ada" });
       }
 
-      const usaha = await Usaha.findBy('user_id', req.params.userId);
+      const usaha = await Usaha.findAllBy('user_id', req.params.userId);
       const { user, ...usaha_without_user } = usaha;
-      usaha_without_user.user = user_data;
+      
 
       const data = {
-        usaha: usaha_without_user,
+        usaha: usaha,
       };
 
       if (usaha) {

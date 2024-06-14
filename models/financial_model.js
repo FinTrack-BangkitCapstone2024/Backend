@@ -6,6 +6,7 @@ const {
 const dotenv = require('dotenv');
 const Model = require('./model');
 const { getYearlyFinancial } = require('../controllers/financial_controller');
+const { all } = require('../routes');
 
 dotenv.config();
 
@@ -34,51 +35,7 @@ class Financial extends Model {
         return 'Not Found';
     }
   }
-
-  async getWeeklyFinancial(id_usaha) {
-    const now = new Date();
-    const utc = now.getTime();
-    const wibOffset = 420;
-
-    const wib = utc + (wibOffset * 60000);
-
-    const maximumDay = new Date(wib);
-    const minimumDay = new Date(wib);
-
-    minimumDay.setDate(maximumDay.getDate() - 7);
-
-    const snapshot = await getDocs(this.collectionRef);
-    const items = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-    const weeklyMasukan = [0, 0, 0, 0, 0, 0, 0];
-    const weeklyKeluaran = [0, 0, 0, 0, 0, 0, 0];
-    console.log('items');
-    console.log(items);
-    items.forEach((item) => {
-      console.log('Date');
-      const itemDate = new Date(new Date(item.tanggal).getTime() + (wibOffset * 60000));
-      const index = (maximumDay.getDate() - itemDate.getDate());
-      console.log(index);
-      console.log(item);
-      if (index >= 0 && item.usaha_id == id_usaha) {
-        if (item.tipe == 'pengeluaran') {
-          weeklyKeluaran[index] += parseInt(item.jumlah);
-        }
-        if (item.tipe == 'pemasukan') {
-          weeklyMasukan[index] += parseInt(item.jumlah);
-        }
-      }
-    });
-    // if(weeklyMasukan.length > 0) return weeklyMasukan;
-    const hari = [];
-    for (let i = 0; i < 7; i++) {
-      const date = new Date(maximumDay);
-      date.setDate(maximumDay.getDate() - i);
-      hari.push(this.namingDate(date.getDay()));
-    }
-    console.log(hari);
-    return { day: hari.reverse(), masukan: weeklyMasukan.reverse(), pengeluaran: weeklyKeluaran.reverse() };
-  }
-
+  
   formatDateToYMD(dateString) {
     // Buat objek Date dari string tanggal
     const date = new Date(dateString);
@@ -87,6 +44,11 @@ class Financial extends Model {
     const formattedDate = date.toISOString().substring(0, 10);
 
     return formattedDate;
+  }
+
+  formatDateToYM(date) {
+    const options = { day: 'numeric', month: 'short' };
+    return date.toLocaleDateString('id-ID', options); // Menggunakan 'id-ID' untuk format bahasa Indonesia
   }
 
   async forecasting(usahaId) {
@@ -150,26 +112,96 @@ u
     return futureSalesAndSpend;
   }
 
+  
+    async getWeeklyFinancial(id_usaha) {
+      const snapshot = await getDocs(this.collectionRef);
+      let items = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+      items = items.filter((item) => item.usaha_id == id_usaha);
+      
+      // Menghapus duplikat dengan menggunakan string ISO
+      const allDate = [...new Set(items.map((item) => new Date(item.tanggal).toISOString()))];
+      
+      // Mengubah kembali string ISO menjadi objek Date
+      const allDateObjects = allDate.map(dateString => new Date(dateString));
+      
+      // Mengurutkan tanggal
+      const allDateSorted = allDateObjects.sort((a, b) => b - a);
+      console.log(allDateSorted);
+      console.log(allDateSorted[0]);
+      console.log(allDateSorted[6]);
+      const weeklyMasukan = [0, 0, 0, 0, 0, 0, 0];
+      const weeklyKeluaran = [0, 0, 0, 0, 0, 0, 0];
+      const now = new Date();
+      const utc = now.getTime();
+      const wibOffset = 420;
+  
+      const wib = utc + (wibOffset * 60000);
+      
+      const maximumDay = allDateSorted[0];
+  
+      // console.log('items');
+      // console.log(items);
+      let tes = 0;
+      items.forEach((item) => {
+        // console.log('Date');
+        const itemDate = new Date(new Date(item.tanggal));
+        const index = ((maximumDay - itemDate) / (1000 * 3600 * 24));
+        console.log("tes", index);
+        console.log("maximumDay", maximumDay ," - ", itemDate, " = ",(maximumDay - itemDate) / (1000 * 3600 * 24));
+        // console.log(index);
+        // console.log(item);
+        if (index >= 0 && index < 7 && item.usaha_id == id_usaha) {
+          if (item.tipe == 'pengeluaran') {
+            weeklyKeluaran[index] += parseInt(item.jumlah);
+          }
+          if (item.tipe == 'pemasukan') {
+            weeklyMasukan[index] += parseInt(item.jumlah);
+          }
+        }
+      });
+      // if(weeklyMasukan.length > 0) return weeklyMasukan;
+      console.log("weeklyKeluaran");
+      console.log(weeklyKeluaran);
+      console.log("weeklyMasukan");
+      console.log(weeklyMasukan);
+      const hari = [];
+      for (let i = 0; i < 7; i++) {
+        const date = new Date(maximumDay);
+        date.setDate(maximumDay.getDate() - i);
+        hari.push(this.namingDate(date.getDay()));
+      }
+      console.log(hari);
+      return { day: hari.reverse(), masukan: weeklyMasukan.reverse(), pengeluaran: weeklyKeluaran.reverse() };
+    }
   async getMonthlyFinancial(id_usaha) {
+    const snapshot = await getDocs(this.collectionRef);
+      let items = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+      items = items.filter((item) => item.usaha_id == id_usaha);
+      
+      // Menghapus duplikat dengan menggunakan string ISO
+      const allDate = [...new Set(items.map((item) => new Date(item.tanggal).toISOString()))];
+      
+      // Mengubah kembali string ISO menjadi objek Date
+      const allDateObjects = allDate.map(dateString => new Date(dateString));
+      const allDateSorted = allDateObjects.sort((a, b) => b - a);
+      
     const now = new Date();
     const utc = now.getTime();
     const wibOffset = 420;
 
     const wib = utc + (wibOffset * 60000);
 
-    const maximumDay = new Date(wib);
+    const maximumDay = allDateSorted[0];
     const minimumDay = new Date(wib);
 
     minimumDay.setDate(maximumDay.getDate() - 30);
 
-    const snapshot = await getDocs(this.collectionRef);
-    const items = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-    const monthlyMasukan = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    const monthlyKeluaran = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    const monthlyMasukan = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    const monthlyKeluaran = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     items.forEach((item) => {
-      const itemDate = new Date(new Date(item.tanggal).getTime() + (wibOffset * 60000));
-      const index = (maximumDay.getMonth() - itemDate.getMonth());
-      if (index >= 0 && item.usaha_id == id_usaha) {
+      const itemDate = new Date(new Date(item.tanggal));
+      const index = ((maximumDay - itemDate) / (1000 * 3600 * 24));
+      if (index >= 0 && index < 30) {
         if (item.tipe == 'pengeluaran') {
           monthlyKeluaran[index] += parseInt(item.jumlah);
         }
@@ -179,33 +211,43 @@ u
       }
     });
     const bulan = [];
-    for (let i = 0; i < 12; i++) {
+    for (let i = 0; i < 30; i++) {
       const date = new Date(maximumDay);
-      date.setMonth(maximumDay.getMonth() - i);
-      bulan.push(date.toLocaleString('default', { month: 'long' }));
+      console.log(date);
+      date.setDate(maximumDay.getDate() - i);
+      bulan.push(this.formatDateToYM(date));
     }
-    return { bulan: bulan.reverse(), masukan: monthlyMasukan.reverse(), pengeluaran: monthlyKeluaran.reverse() };
+    return { tanggal: bulan, masukan: monthlyMasukan.reverse(), pengeluaran: monthlyKeluaran.reverse() };
   }
+
   async getYearlyFinancial(id_usaha) {  
+    const snapshot = await getDocs(this.collectionRef);
+    let items = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    items = items.filter((item) => item.usaha_id == id_usaha);
+    
+    // Menghapus duplikat dengan menggunakan string ISO
+    const allDate = [...new Set(items.map((item) => new Date(item.tanggal).toISOString()))];
+    
+    // Mengubah kembali string ISO menjadi objek Date
+    const allDateObjects = allDate.map(dateString => new Date(dateString));
     const now = new Date();
     const utc = now.getTime();
     const wibOffset = 420;
 
     const wib = utc + (wibOffset * 60000);
 
-    const maximumDay = new Date(wib);
+    const maximumDay = allDateObjects[0];
     const minimumDay = new Date(wib);
 
     minimumDay.setDate(maximumDay.getDate() - 365);
 
-    const snapshot = await getDocs(this.collectionRef);
-    const items = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-    const yearlyMasukan = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    const yearlyKeluaran = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    
+    const yearlyMasukan = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    const yearlyKeluaran = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     items.forEach((item) => {
-      const itemDate = new Date(new Date(item.tanggal).getTime() + (wibOffset * 60000));
-      const index = (maximumDay.getFullYear() - itemDate.getFullYear());
-      if (index >= 0 && item.usaha_id == id_usaha) {
+      const itemDate = new Date(new Date(item.tanggal));
+      const index = (maximumDay.getFullYear() - itemDate.getFullYear()) * 12 + (maximumDay.getMonth() - itemDate.getMonth());
+      if (index >= 0 && index < 12) {
         if (item.tipe == 'pengeluaran') {
           yearlyKeluaran[index] += parseInt(item.jumlah);
         }
@@ -214,13 +256,13 @@ u
         }
       }
     });
-    const tahun = [];
-    for (let i = 0; i < 10; i++) {
+    const bulan = [];
+    for (let i = 0; i < 12; i++) {
       const date = new Date(maximumDay);
-      date.setFullYear(maximumDay.getFullYear() - i);
-      tahun.push(date.getFullYear());
+      date.setMonth(maximumDay.getMonth() - i);
+      bulan.push(date.toLocaleString('default', { month: 'long' }));
     }
-    return { tahun: tahun.reverse(), masukan: yearlyMasukan.reverse(), pengeluaran: yearlyKeluaran.reverse() };
+    return { bulan: bulan.reverse(), masukan: yearlyMasukan.reverse(), pengeluaran: yearlyKeluaran.reverse() };
   }
 
  
