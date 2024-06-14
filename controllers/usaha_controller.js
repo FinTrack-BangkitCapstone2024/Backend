@@ -47,15 +47,25 @@ const usaha_controller = {
         res.status(404).json({ code: 404, status: 'error', message: "user tidak ada" });
       }
 
-      const usaha = await Usaha.findAllBy('user_id', req.params.userId);
-      const { user, ...usaha_without_user } = usaha;
-      
-
+      const usahas = await Usaha.findAllBy('user_id', req.params.userId);
+      const data_usaha = [];
+      for(const usaha of usahas) {
+        data_usaha.push({
+          id: usaha.id,
+          nama: usaha.nama,
+          logo_path: usaha.logo_path,
+          lokasi: usaha.lokasi,
+          jenis: usaha.jenis,
+          total_pemasukan: usaha.total_pemasukan,
+          total_pengeluaran: usaha.total_pengeluaran,
+          balance: usaha.balance,
+        });
+      }
       const data = {
-        usaha: usaha,
+        usaha: data_usaha,
       };
 
-      if (usaha) {
+      if (data_usaha.length > 0) {
         res.status(200).json({ code: 200, status: 'success', data: data });
       } else {
         res.status(404).json({ code: 404, status: 'error', message: "usaha tidak ada" });
