@@ -2,71 +2,38 @@
  * @swagger
  * components:
  *   schemas:
- *     Usaha:
+ *     User:
  *       type: object
  *       required:
- *         - id
- *         - user_id
- *         - Nama_usaha
- *         - alamat
- *         - kecamatan
- *         - kota
- *         - provinsi
- *         - Jenis
- *         - Logo_path
- * 
+ *         - name
+ *         - password
+ *         - email
  *       properties:
  *         id:
  *           type: string
  *           description: The auto-generated id
- *         user_id:
+ *         name:
  *           type: string
- *           description: Unique ID of the user who owns the business
- *         Nama_usaha:
+ *           description: User's name
+ *         password:
  *           type: string
- *           description: Business name
- *         Lokasi:
- *           description: Business location
- *           properties:
- *            alamat:
- *              type: string
- *              description: Business address
- *            kecamatan:
- *              type: string
- *              description: District of the business location
- *            kota:
- *              type: string
- *              description: City or Regency of the business location
- *            provinsi:
- *              type: string
- *              description: Province of the business location
- * 
- *         Jenis:
- *           type: string
- *           description: Business type (e.g., convenience store, coffee shop, etc.)
- *         Deskripsi:
- *           type: string
- *           description: Business description
- *         Logo_path:
- *           type: string
- *           description: Path or URL to the business logo
- * 
+ *           description: User's password
+ *         email:
+ *           type: String
+ *           description: User's email
  *       example:
  *         id: d5fE_asz
- *         user_id: 60d0fe4f5311236168a109ca
- *         Nama_usaha: Warung Sederhana Mbak Eni
- *         Lokasi: { Alamat: "123 Main St", Kecamatan: "Central", Kota/Kab: "Jakarta", Provinsi: "DKI Jakarta" }
- *         Jenis: warung
- *         Deskripsi: Menjual kebutuhan sehari-hari
- *         Logo_path: "/images/logos/warung-mbak-eni.png"
+ *         name: Bangkit2024
+ *         password: BangkitNilaiA
+ *         email: bangkit@gmail.com
  */
 
 /**
  * @swagger
  * tags:
- *   name: Usaha
- *   description: Usaha managing API
- * /api/usaha/:
+ *   name: User
+ *   description: User managing API
+ * /api/users/:
  *   get:
  *     summary: Lists all the usaha
  *     tags: [Usaha]

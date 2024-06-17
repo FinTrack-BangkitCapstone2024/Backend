@@ -2,63 +2,51 @@
  * @swagger
  * components:
  *   schemas:
- *     Usaha:
+ *     Financial_data:
  *       type: object
  *       required:
- *         - id
  *         - user_id
- *         - Nama_usaha
- *         - alamat
- *         - kecamatan
- *         - kota
- *         - provinsi
- *         - Jenis
- *         - Logo_path
- * 
+ *         - usaha_id 
+ *         - title
+ *         - type
+ *         - money
+ *         - date
  *       properties:
  *         id:
  *           type: string
  *           description: The auto-generated id
  *         user_id:
  *           type: string
- *           description: Unique ID of the user who owns the business
- *         Nama_usaha:
+ *           description: Unique ID of the user who owns the financial data
+ *         usaha_id:
  *           type: string
- *           description: Business name
- *         Lokasi:
- *           description: Business location
- *           properties:
- *            alamat:
- *              type: string
- *              description: Business address
- *            kecamatan:
- *              type: string
- *              description: District of the business location
- *            kota:
- *              type: string
- *              description: City or Regency of the business location
- *            provinsi:
- *              type: string
- *              description: Province of the business location
- * 
- *         Jenis:
+ *           description: Unique ID of the related business
+ *         title:
  *           type: string
- *           description: Business type (e.g., convenience store, coffee shop, etc.)
- *         Deskripsi:
+ *           description: Title of the financial entry
+ *         type:
  *           type: string
- *           description: Business description
- *         Logo_path:
+ *           description: Type of financial entry (income or expense)
+ *         money:
+ *           type: number
+ *           description: Amount of money in the financial entry
+ *         description:
  *           type: string
- *           description: Path or URL to the business logo
+ *           description: Description of the financial entry
+ *         date:
+ *           type: string
+ *           description: Date of the financial entry
  * 
  *       example:
  *         id: d5fE_asz
  *         user_id: 60d0fe4f5311236168a109ca
- *         Nama_usaha: Warung Sederhana Mbak Eni
- *         Lokasi: { Alamat: "123 Main St", Kecamatan: "Central", Kota/Kab: "Jakarta", Provinsi: "DKI Jakarta" }
- *         Jenis: warung
- *         Deskripsi: Menjual kebutuhan sehari-hari
- *         Logo_path: "/images/logos/warung-mbak-eni.png"
+ *         usaha_id: 60d0fe4f5311236168a109cb
+ *         title: Bangkit2024
+ *         type: masukan
+ *         money: 100.500
+ *         description: Purchase of Bangkit Education
+ *         date: 2023-06-15
+ *         balance: 500.000
  */
 
 /**

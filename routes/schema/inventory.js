@@ -2,35 +2,49 @@
  * @swagger
  * components:
  *   schemas:
- *     Auth:
+ *     inventory:
  *       type: object
  *       required:
- *         - title
- *         - author
- *         - finished
+ *         - user_id
+ *         - photo_url
+ *         - item_name
+ *         - item_type
+ *         - quantity
+ *         - unit
  *       properties:
  *         id:
  *           type: string
- *           description: The auto-generated id of the book
- *         title:
+ *           description: The auto-generated id
+ *         user_id:
  *           type: string
- *           description: The title of your book
- *         author:
+ *           description: Unique ID of the user who owns the inventory
+ *         photo_url:
  *           type: string
- *           description: The book author
- *         finished:
- *           type: boolean
- *           description: Whether you have finished reading the book
- *         createdAt:
+ *           description: URL to the inventory photo
+ *         item_name:
  *           type: string
- *           format: date
- *           description: The date the book was added
+ *           description: Name of the inventory item
+ *         item_type:
+ *           type: string
+ *           description: Type of the inventory item
+ *         quantity:
+ *           type: number
+ *           description: Quantity of the inventory item
+ *         unit:
+ *           type: string
+ *           description: Unit of the inventory item
+ *         description:
+ *           type: string
+ *           description: Description of the inventory item
  *       example:
  *         id: d5fE_asz
- *         title: The New Turing Omnibus
- *         author: Alexander K. Dewdney
- *         finished: false
- *         createdAt: 2020-03-10T04:05:06.157Z
+ *         user_id: 60d0fe4f5311236168a109ca
+ *         photo_url: /images/inventory/bangkit.jpg
+ *         item_name: Paket Bangkit
+ *         item_type: Book
+ *         quantity: 50
+ *         unit: pieces
+ *         description: Paket Buku Tugas untuk menghadapi ujian Bangkit
  */
 
 /**
