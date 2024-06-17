@@ -77,3 +77,5 @@ const usaha_controller = {
 };
 
 module.exports = usaha_controller;
+
+

@@ -2,6 +2,7 @@ const {
   getDocs, doc, getDoc, addDoc, updateDoc, query, where,
 } = require('firebase/firestore/lite');
 // const tf = require("@tensorflow/tfjs-node");
+const axios = require('axios').default;
 
 const dotenv = require('dotenv');
 const Model = require('./model');
@@ -51,15 +52,23 @@ class Financial extends Model {
     return date.toLocaleDateString('id-ID', options); // Menggunakan 'id-ID' untuk format bahasa Indonesia
   }
 
+
+  
+
   async forecasting(usahaId) {
     const data_predicts = [];
-    const all_data = await this.getAll();
-    const dates = [...new Set(all_data.map((item) => new Date(item.tanggal)))];
+    const snapshot = await getDocs(this.collectionRef);
+    let items = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    items = items.filter((item) => item.usaha_id == usahaId);
+    const dates = [...new Set(items.map((item) => new Date(item.tanggal)))];
     const i = 0;
+    console.log("== ALLL DATESS ", dates)
     for (const date of dates) {
       let current_pemasukan = 0;
       let current_pengeluaran = 0;
-      const q_all_current_pemasukan = query(this.collectionRef, where('tanggal', '==', this.formatDateToYMD(date)), where('usaha_id', '==', usahaId));
+      const cur_date = this.formatDateToYMD(date)
+      console.log("CURR DATE ==== ", cur_date)
+      const q_all_current_pemasukan = query(this.collectionRef, where('tanggal', '==',cur_date));
       const all_current_pemasukan_snapshot = await getDocs(q_all_current_pemasukan);
       all_current_pemasukan_snapshot.forEach((doc) => {
         if (doc.data().tipe == 'pemasukan') {
@@ -71,46 +80,27 @@ class Financial extends Model {
       // console.log(`${this.formatDateToYMD(date)} : ${current_pemasukan} dan pengeluaran ${current_pengeluaran}`);
       const data_predict = [current_pemasukan, current_pengeluaran];
       data_predicts.push(data_predict);
+
+      // console.log(data_predicts);
+      // hit MODEL_URL
     }
     console.log(data_predicts);
+    try{
 
-    const windowSize = 360;
-    const predictDays = 30;
-    const model = this.loadModel;
-    const futureSalesAndSpend = await this.makePredictions(model, data_predicts, windowSize, predictDays);
-    console.log(futureSalesAndSpend);
-    return [futureSalesAndSpend];
-  }
-
-  async loadModel() {
-    const model = await tf.loadLayerModel(process.env.MODEL_URL);
-    return model;
-  }
-
-  async makePredictions(model, salesAndSpend, windowSize = 360, predictDays = 30) {
-    const futureSalesAndSpend = [];
-    let xInputPredict = salesAndSpend.slice(-windowSize); // Get last `windowSize` elements
-
-    for (let i = 0; i < predictDays; i++) {
-      // Reshape input data for model prediction
-      const xInputTensor = tf.tensor(xInputPredict).reshape([1, windowSize, 2]);
-
-      // Make prediction
-      let prediction = model.predict(xInputTensor);
-      prediction = prediction.arraySync()[0]; // Convert tensor to array
-u 
-      // Store predicted values
-      futureSalesAndSpend.push(prediction);
-
-      // Roll the array to remove the first element
-      xInputPredict = xInputPredict.slice(1);
-
-      // Update xInputPredict with the prediction
-      xInputPredict.push(prediction);
+      const MODEL_URL = process.env.MODEL_URL + "predict";
+      console.log("Mengirim ke model di ", MODEL_URL  , "\n dan datanya ", data_predicts)
+      const response = await axios.post(MODEL_URL, { features: data_predicts });
+      console.log("Selesai ke model")
+      console.log(response.data);
+      return response.data;
+    }catch(error){
+      console.log("Error", error.response.data);
+      return error.response.data;
     }
-
-    return futureSalesAndSpend;
+    
+    
   }
+
 
   
     async getWeeklyFinancial(id_usaha) {
@@ -271,24 +261,3 @@ u
 
 module.exports = new Financial();
 
-// const model = await this.loadModel();
-// const snapshot = await getDocs(this.collectionRef);
-// const items = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}));
-// const data = [];
-// items.forEach(item => {
-//   data.push([item.tanggal, item.jumlah]);
-// });
-// const input = [];
-// const output = [];
-// for (let i = 0; i < data.length - 1; i++) {
-//   input.push(data[i][1]);
-//   output.push(data[i + 1][1]);
-// }
-// const inputTensor = tf.tensor2d(input, [input.length, 1]);
-// const outputTensor = tf.tensor2d(output, [output.length, 1]);
-
-// model.add(tf.layers.dense({units: 1, inputShape: [1]}));
-// model.compile({loss: 'meanSquaredError', optimizer: 'sgd'});
-// await model.fit(inputTensor, outputTensor, {epochs: 100});
-// const forecast = await model.predict(tf.tensor2d([input[input.length - 1]], [1, 1]));
-// return forecast;
