@@ -1,11 +1,8 @@
 const { body, validationResult } = require('express-validator');
+const inventaris_controller = require('../controllers/inventaris_controller');
 
 const validator = {
-
-  signInValidationRules: () => [
-    body('email').isEmail().withMessage('Email is not valid'),
-    body('password').isLength({ min: 8 }).withMessage('Password must be at least 8 characters'),
-  ],
+  signInValidationRules: () => [body('email').isEmail().withMessage('Email is not valid'), body('password').isLength({ min: 8 }).withMessage('Password must be at least 8 characters')],
 
   signUpValidationRules: () => [
     body('email').isEmail().withMessage('Email is not valid'),
@@ -16,7 +13,7 @@ const validator = {
   financialValidationRules: () => [
     body('tanggal').notEmpty().withMessage('Tanggal must not be empty'),
     body('jumlah').isNumeric().withMessage('Jumlah must be a number').notEmpty().withMessage('Jumlah must not be empty'),
-    body('tipe').isIn(['pemasukan',  'pengeluaran']).withMessage('Tipe must be pemasukan or pengeluaran'),
+    body('tipe').isIn(['pemasukan', 'pengeluaran']).withMessage('Tipe must be pemasukan or pengeluaran'),
     body('usaha_id').notEmpty().withMessage('Usaha ID must not be empty'),
     body('description').notEmpty().withMessage('description must not be empty'),
   ],
@@ -25,10 +22,21 @@ const validator = {
     body('nama').notEmpty().withMessage('Nama usaha must not be empty'),
     body('user_id').notEmpty().withMessage('User ID must not be empty'),
     body('jenis').notEmpty().withMessage('Jenis usaha must not be empty'),
-    body('lokasi.alamat').notEmpty().withMessage('Alamat usaha must not be empty'),
-    body('lokasi.kecamatan').notEmpty().withMessage('Kecamatan usaha must not be empty'),
-    body('lokasi.kota').notEmpty().withMessage('Kota usaha must not be empty'),
-    body('lokasi.provinsi').notEmpty().withMessage('Provinsi usaha must not be empty'),
+    body('alamat').notEmpty().withMessage('Alamat usaha must not be empty'),
+    body('kecamatan').notEmpty().withMessage('Kecamatan usaha must not be empty'),
+    body('kota').notEmpty().withMessage('Kota usaha must not be empty'),
+    body('provinsi').notEmpty().withMessage('Provinsi usaha must not be empty'),
+    // body('lokasi.alamat').notEmpty().withMessage('Alamat usaha must not be empty'),
+    // body('lokasi.kecamatan').notEmpty().withMessage('Kecamatan usaha must not be empty'),
+    // body('lokasi.kota').notEmpty().withMessage('Kota usaha must not be empty'),
+    // body('lokasi.provinsi').notEmpty().withMessage('Provinsi usaha must not be empty'),
+  ],
+
+  inventarisValidationRules: () => [
+    body('item_name').notEmpty().withMessage('item_name must not be empty'),
+    body('item_type').notEmpty().withMessage('item_type must not be empty'),
+    body('quantity').notEmpty().isNumeric().withMessage('quantity usaha must not be empty'),
+    body('unit').notEmpty().withMessage('Unit must not be empty'),
   ],
 
   validate: (req, res, next) => {

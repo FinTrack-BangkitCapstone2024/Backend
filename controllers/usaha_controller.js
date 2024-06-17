@@ -1,6 +1,8 @@
 const Usaha = require('../models/usaha_model');
 const User = require('../models/user_model');
 
+const bucket = require('../config/gcs');
+
 const usaha_controller = {
   getAllUsaha: async (req, res) => {
     try {
@@ -24,12 +26,45 @@ const usaha_controller = {
     }
   },
   addUsaha: async (req, res) => {
-    try {
-      const usaha = await Usaha.add(req.body);
-      res.status(201).json({ code: 201, status: 'created', data: { id: usaha.id } });
-    } catch (error) {
-      res.status(500).json({ code: 500, status: 'error', message: error.message });
+    const { file } = req;
+
+    if (!file) {
+      return res.status(400).send('No image uploaded.');
     }
+
+    const fileName = `${Date.now()}-${req.file.originalname}`;
+    const folderName = 'logo';
+    const blob = bucket.file(`${folderName}/${fileName}`);
+    const blobStream = blob.createWriteStream({
+      resumable: false,
+      contentType: file.mimetype,
+    });
+
+    blobStream.on('error', (err) => res.status(500).send({ message: err.message }));
+
+    blobStream.on('finish', async () => {
+      const photo_url = `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
+
+      const Items = {
+        nama: req.body.nama,
+        user_id: req.body.user_id,
+        jenis: req.body.jenis,
+        lokasi: {
+          alamat: req.body.alamat,
+          kecamatan: req.body.kecamatan,
+          kota: req.body.kota,
+          provinsi: req.body.provinsi,
+        },
+        Logo_path: photo_url,
+      };
+      try {
+        const usaha = await Usaha.add(Items);
+        res.status(201).json({ code: 201, status: 'created', data: { id: usaha.id } });
+      } catch (error) {
+        res.status(500).json({ code: 500, status: 'error', message: error.message });
+      }
+    });
+    blobStream.end(file.buffer);
   },
   editUsaha: async (req, res) => {
     try {
@@ -42,14 +77,14 @@ const usaha_controller = {
   getUsahaByOwner: async (req, res) => {
     try {
       const user_data = await User.findById(req.params.userId);
-      console.log(req.params.userId)
-      if (!user_data) { 
-        res.status(404).json({ code: 404, status: 'error', message: "user tidak ada" });
+      console.log(req.params.userId);
+      if (!user_data) {
+        res.status(404).json({ code: 404, status: 'error', message: 'user tidak ada' });
       }
 
       const usahas = await Usaha.findAllBy('user_id', req.params.userId);
       const data_usaha = [];
-      for(const usaha of usahas) {
+      for (const usaha of usahas) {
         data_usaha.push({
           id: usaha.id,
           nama: usaha.nama,
@@ -68,7 +103,7 @@ const usaha_controller = {
       if (data_usaha.length > 0) {
         res.status(200).json({ code: 200, status: 'success', data: data });
       } else {
-        res.status(404).json({ code: 404, status: 'error', message: "usaha tidak ada" });
+        res.status(404).json({ code: 404, status: 'error', message: 'usaha tidak ada' });
       }
     } catch (error) {
       res.status(500).json({ code: 500, status: 'error', message: error.message });

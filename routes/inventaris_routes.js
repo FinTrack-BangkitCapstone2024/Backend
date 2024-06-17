@@ -4,6 +4,8 @@ const router = express.Router();
 const multer = require('multer');
 const inventaris_controller = require('../controllers/inventaris_controller');
 
+const validator = require('./validator');
+
 const sementara = () => {};
 
 const upload = multer({
@@ -13,7 +15,7 @@ const upload = multer({
 
 router.get('/:usaha/inventaris', inventaris_controller.getAllInventaris);
 router.get('/:usaha/inventaris/:inventarisId', inventaris_controller.getInventaris);
-router.post('/', upload.single('file'), inventaris_controller.addInventaris);
+router.post('/', upload.single('file'), validator.inventarisValidationRules(), validator.validate, inventaris_controller.addInventaris);
 router.put('/:usaha/inventaris/:inventarisId', inventaris_controller.editInventaris);
 
 module.exports = router;
