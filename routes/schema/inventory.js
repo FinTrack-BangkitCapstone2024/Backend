@@ -50,101 +50,104 @@
 /**
  * @swagger
  * tags:
- *   name: Usaha
- *   description: Usaha managing API
- * /api/usaha/:
+ *   name: Inventaris
+ *   description: Inventaris managing API
+ * /api/inventaris/{usahaId}/inventaris:
  *   get:
- *     summary: Lists all the usaha
- *     tags: [Usaha]
+ *     summary: Lists all inventory items for a specific business
+ *     tags: [Inventaris]
+ *     parameters:
+ *       - in: path
+ *         name: usahaId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The business id
  *     responses:
  *       200:
- *         description: The list of the usaha
+ *         description: The list of inventory items
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '/api/usaha/'
+ *                 $ref: '#/components/schemas/Inventory'
+ * /api/inventaris/{usahaId}/inventaris/{inventarisId}:
+ *   get:
+ *     summary: Get the inventory item by id
+ *     tags: [Inventory]
+ *     parameters:
+ *       - in: path
+ *         name: usahaId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The business id
+ *       - in: path
+ *        name: inventarisId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The inventory item id
+ *     responses:
+ *       200:
+ *         description: The inventory item response by id
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Inventory'
+ * /api/inventaris/:
  *   post:
- *     summary: Create a new usaha
- *     tags: [Usaha]
+ *     summary: Create a new inventory item
+ *     tags: [Inventory]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               file:
+ *                 type: string
+ *                 format: binary
+ *               data:
+ *                 type: object
+ *                 $ref: '#/components/schemas/Inventory'
+ *       responses:
+ *         200:
+ *           description: The created inventory item.
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/Inventory'
+ * /api/inventaris/{usahaId}/inventaris/{inventarisId}:
+ *   put:
+ *     summary: Update the inventory item by id
+ *     tags: [Inventory]
+ *     parameters:
+ *       - in: path
+ *         name: usahaId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The business id
+ *       - in: path
+ *         name: inventarisId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The inventory item id
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Book'
+ *             $ref: '#/components/schemas/Inventory'
  *     responses:
  *       200:
- *         description: The created usaha.
+ *         description: The inventory item was updated
  *         content:
  *           application/json:
  *             schema:
- *               Usaha:
- *                  type: object
- *       500:
- *         description: Some server error
- * /usaha/{id}:
- *   get:
- *     summary: Get the book by id
- *     tags: [Usaha]
- *     parameters:
- *       - in: path
- *         name: id
- *         schema:
- *           type: string
- *         required: true
- *         description: The book id
- *     responses:
- *       200:
- *         description: The book response by id
- *         contens:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Book'
- *       404:
- *         description: The book was not found
- *   put:
- *    summary: Update the book by the id
- *    tags: [Usaha]
- *    parameters:
- *      - in: path
- *        name: id
- *        schema:
- *          type: string
- *        required: true
- *        description: The book id
- *    requestBody:
- *      required: true
- *      content:
- *        application/json:
- *          schema:
- *            $ref: '#/components/schemas/Book'
- *    responses:
- *      200:
- *        description: The book was updated
- *        content:
- *          application/json:
- *            schema:
- *              $ref: '#/components/schemas/Book'
- *      404:
- *        description: The book was not found
- *      500:
- *        description: Some error happened
- *   delete:
- *     summary: Remove the book by id
- *     tags: [Usaha]
- *     parameters:
- *       - in: path
- *         name: id
- *         schema:
- *           type: string
- *         required: true
- *         description: The book id
- *
- *     responses:
- *       200:
- *         description: The book was deleted
- *       404:
- *         description: The book was not found
+ *               $ref: '#/components/schemas/Inventory'
  */
