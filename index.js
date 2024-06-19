@@ -22,9 +22,6 @@ app.use('/api', routes);
 app.get('/', (req, res) => {
   res.redirect('/docs');
 });
-app.get('/docs', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'docs', 'index.html'));
-});
 
 const options = {
   definition: {
@@ -45,7 +42,7 @@ const options = {
     },
     servers: [
       {
-        url: 'http://localhost:3000',
+        url: 'https://fintrack-424802.et.r.appspot.com/',
       },
     ],
   },
@@ -53,7 +50,7 @@ const options = {
 };
 
 const specs = swaggerJsdoc(options);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs, { explorer: true }));
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(specs, { explorer: true }));
 
 app.listen(port, () => {
   console.log(`app running at http://localhost:${port}`);
