@@ -151,7 +151,17 @@ const financial_controller = {
   forecasting: async (req, res) => {
     try {
       const items = await Financial.forecasting(req.params.usahaId);
-      res.status(200).json({ code: 200, status: 'success', data: items });
+      console.log("items");
+      console.log(items);
+      const data = items.prediction;
+
+      const pemasukan =[]
+      const pengeluaran = []
+      for(const item of data){
+        pemasukan.push(item[0])
+        pengeluaran.push(item[1])
+      }
+      res.status(200).json({ code: 200, status: 'success', data: {pemasukan, pengeluaran} });
     } catch (error) {
       res.status(500).json({ code: 500, status: 'error', message: error.message });
     }
