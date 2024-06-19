@@ -157,11 +157,22 @@ const financial_controller = {
 
       const pemasukan =[]
       const pengeluaran = []
+      const balance = []
       for(const item of data){
         pemasukan.push(item[0])
         pengeluaran.push(item[1])
+        balance.push(parseFloat(item[0]) - parseFloat(item[1]));
       }
-      res.status(200).json({ code: 200, status: 'success', data: {pemasukan, pengeluaran} });
+      res.status(200).json({ code: 200, status: 'success', data: {pemasukan, pengeluaran, balance} });
+    } catch (error) {
+      res.status(500).json({ code: 500, status: 'error', message: error.message });
+    }
+  },
+
+  forecastingHistory: async (req, res) => {
+    try {
+      const items = await Financial.forecastingHistory(req.params.usahaId);
+      res.status(200).json({ code: 200, status: 'success', data: items });
     } catch (error) {
       res.status(500).json({ code: 500, status: 'error', message: error.message });
     }

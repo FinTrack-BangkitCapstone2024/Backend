@@ -5,6 +5,8 @@ const { firebaseApp } = require('../config/firebase');
 
 const db = getFirestore(firebaseApp);
 const User = require('../models/user_model');
+const bcrypt = require('bcrypt');
+
 
 const user_controller = {
   getAllUsers: async (req, res) => {
@@ -42,11 +44,29 @@ const user_controller = {
   },
 
   editUser: async (req, res) => {
+    const {new_password, old_password, ...rest} = req.body;
     try {
-      const user = await User.edit(req.params.id, req.body);
-      res.status(200).json({ code: 200, status: 'edited', data: user });
+      const old_user = await User.findById(req.params.id);
+      if (new_password && old_password) {
+        const salt = await bcrypt.genSaltSync(10);
+        const hash_old_password = await bcrypt.hashSync(old_password, salt);
+        const new_hash_password = await bcrypt.hashSync(new_password, salt);
+        console.log("hash_old_password");
+        console.log(hash_old_password);
+        console.log("old_user.password");
+        console.log(old_user.password);
+        if (bcrypt.compareSync(old_password, old_user.password) === false) {
+          return res.status(401).json({ code: 401, status: 'error', message: 'Password is wrong' });
+        }
+        req.body.new_password = null;
+        req.body.old_password = null;
+        req.body.password = new_hash_password;
+      }
+
+      const user = await User.edit(req.params.id, rest);
+      return res.status(200).json({ code: 200, status: 'edited', data: user });
     } catch (error) {
-      res.status(500).json({ code: 500, status: 'error', message: error.message });
+      return res.status(500).json({ code: 500, status: 'error', message: error.message });
     }
   },
   deleteUser: async (req, res) => {

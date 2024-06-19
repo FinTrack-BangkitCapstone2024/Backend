@@ -22,14 +22,7 @@ const validator = {
     body('nama').notEmpty().withMessage('Nama usaha must not be empty'),
     body('user_id').notEmpty().withMessage('User ID must not be empty'),
     body('jenis').notEmpty().withMessage('Jenis usaha must not be empty'),
-    body('alamat').notEmpty().withMessage('Alamat usaha must not be empty'),
-    // body('kecamatan').notEmpty().withMessage('Kecamatan usaha must not be empty'),
-    // body('kota').notEmpty().withMessage('Kota usaha must not be empty'),
-    // body('provinsi').notEmpty().withMessage('Provinsi usaha must not be empty'),
-    // // body('lokasi.alamat').notEmpty().withMessage('Alamat usaha must not be empty'),
-    // body('lokasi.kecamatan').notEmpty().withMessage('Kecamatan usaha must not be empty'),
-    // body('lokasi.kota').notEmpty().withMessage('Kota usaha must not be empty'),
-    // body('lokasi.provinsi').notEmpty().withMessage('Provinsi usaha must not be empty'),
+    body('lokasi').notEmpty().withMessage('lokasi usaha must not be empty'),
   ],
 
   inventarisValidationRules: () => [
