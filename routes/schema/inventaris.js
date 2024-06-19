@@ -2,7 +2,7 @@
  * @swagger
  * components:
  *   schemas:
- *     inventory:
+ *     inventaris:
  *       type: object
  *       required:
  *         - user_id
@@ -17,29 +17,29 @@
  *           description: The auto-generated id
  *         user_id:
  *           type: string
- *           description: Unique ID of the user who owns the inventory
+ *           description: Unique ID of the user who owns the inventaris
  *         photo_url:
  *           type: string
- *           description: URL to the inventory photo
+ *           description: URL to the inventaris photo
  *         item_name:
  *           type: string
- *           description: Name of the inventory item
+ *           description: Name of the inventaris item
  *         item_type:
  *           type: string
- *           description: Type of the inventory item
+ *           description: Type of the inventaris item
  *         quantity:
  *           type: number
- *           description: Quantity of the inventory item
+ *           description: Quantity of the inventaris item
  *         unit:
  *           type: string
- *           description: Unit of the inventory item
+ *           description: Unit of the inventaris item
  *         description:
  *           type: string
- *           description: Description of the inventory item
+ *           description: Description of the inventaris item
  *       example:
  *         id: d5fE_asz
  *         user_id: 60d0fe4f5311236168a109ca
- *         photo_url: /images/inventory/bangkit.jpg
+ *         photo_url: /images/inventaris/bangkit.jpg
  *         item_name: Paket Bangkit
  *         item_type: Book
  *         quantity: 50
@@ -54,7 +54,7 @@
  *   description: Inventaris managing API
  * /api/inventaris/{usahaId}/inventaris:
  *   get:
- *     summary: Lists all inventory items for a specific business
+ *     summary: Lists all inventaris items for a specific business
  *     tags: [Inventaris]
  *     parameters:
  *       - in: path
@@ -65,65 +65,17 @@
  *         description: The business id
  *     responses:
  *       200:
- *         description: The list of inventory items
+ *         description: The list of inventaris items
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/Inventory'
+ *                 $ref: '#/components/schemas/Inventaris'
  * /api/inventaris/{usahaId}/inventaris/{inventarisId}:
  *   get:
- *     summary: Get the inventory item by id
- *     tags: [Inventory]
- *     parameters:
- *       - in: path
- *         name: usahaId
- *         schema:
- *           type: string
- *         required: true
- *         description: The business id
- *       - in: path
- *        name: inventarisId
- *         schema:
- *           type: string
- *         required: true
- *         description: The inventory item id
- *     responses:
- *       200:
- *         description: The inventory item response by id
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Inventory'
- * /api/inventaris/:
- *   post:
- *     summary: Create a new inventory item
- *     tags: [Inventory]
- *     requestBody:
- *       required: true
- *       content:
- *         multipart/form-data:
- *           schema:
- *             type: object
- *             properties:
- *               file:
- *                 type: string
- *                 format: binary
- *               data:
- *                 type: object
- *                 $ref: '#/components/schemas/Inventory'
- *       responses:
- *         200:
- *           description: The created inventory item.
- *           content:
- *             application/json:
- *               schema:
- *                 $ref: '#/components/schemas/Inventory'
- * /api/inventaris/{usahaId}/inventaris/{inventarisId}:
- *   put:
- *     summary: Update the inventory item by id
- *     tags: [Inventory]
+ *     summary: Get the inventaris item by id
+ *     tags: [Inventaris]
  *     parameters:
  *       - in: path
  *         name: usahaId
@@ -136,18 +88,67 @@
  *         schema:
  *           type: string
  *         required: true
- *         description: The inventory item id
+ *         description: The inventaris item id
+ *     responses:
+ *       200:
+ *         description: The inventaris item response by id
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Inventaris'
+ * 
+ *   put:
+ *     summary: Update the inventaris item by id
+ *     tags: [Inventaris]
+ *     parameters:
+ *       - in: path
+ *         name: usahaId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The business id
+ *       - in: path
+ *         name: inventarisId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The inventaris item id
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Inventory'
+ *             $ref: '#/components/schemas/Inventaris'
  *     responses:
  *       200:
- *         description: The inventory item was updated
+ *         description: The inventaris item was updated
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Inventory'
+ *               $ref: '#/components/schemas/Inventaris'
+ * /api/inventaris/:
+ *   post:
+ *     summary: Create a new inventaris item
+ *     tags: [Inventaris]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               file:
+ *                 type: string
+ *                 format: binary
+ *               data:
+ *                 type: object
+ *                 $ref: '#/components/schemas/Inventaris'
+ *       responses:
+ *         200:
+ *           description: The created inventaris item.
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/Inventaris'
+ *  
  */
