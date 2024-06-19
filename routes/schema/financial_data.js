@@ -63,7 +63,7 @@
  *         description: The list of the usaha
  *         content:
  *           application/json:
- *             schema:
+ *             schemaWS:
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Financial'

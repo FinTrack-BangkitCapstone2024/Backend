@@ -20,10 +20,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api', routes);
 
 app.get('/', (req, res) => {
-  res.redirect('/docs');
-});
-app.get('/docs', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'docs', 'index.html'));
+  res.redirect('/api-docs');
 });
 
 const options = {
@@ -45,7 +42,7 @@ const options = {
     },
     servers: [
       {
-        url: 'http://localhost:3000',
+        url: 'https://fintrack-424802.et.r.appspot.com/',
       },
     ],
   },

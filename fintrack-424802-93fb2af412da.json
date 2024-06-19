@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "fintrack-424802",
+  "private_key_id": "93fb2af412dacbd9a1fab45645c05ccf52abf4a9",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDuv+2kFVsWq0FZ\njhg1hQzhZVygTOkSKzWbsfGecNjiWhlxAZKxNJA5wfqWMmQZDQk5KoAoJ5q7gjdQ\nHniDO04RKAiORwg8Us6qX+42pIeYEvriR89H7daOet4KDJhJSSOT1zHCTnyj1JZ1\n7xOsg8sxR4sR346zfBkQiSJ2NC09ayJWv76e+ftNjmRiyKr+qe4U2aT/+CZRn1nA\ntoEcOjPSX5T1La6PeiUR+sjJvXUpE7uhyt3fZFLVGvoDE4YvvtKDjn/HsrNtFl31\n1bxAIP4hlrFN5+D3JnPPt1Kd3/tjaa9jfUg24B8qhB//6e8uVumRzdA2UEYbMChL\ne7w1R/5TAgMBAAECggEAJs0kdwVNf3qnrUFNp+0OsdcCXb8CJgTFup8J0KEwbmEM\nP3Rs/cW4JtriueRIplWbCSJiH6SIHi9EhA3fshxCTMF/2neq2/rtQX1DvrewncN/\n6KSZCGyb8R4A1gtD+K0dThqsKJMO6KVVKqeHQANPU5v3+xilHYBupmRTKHjEXXWq\nhh/P66mwReLibHXn/feE9pVBZhPSXKGoC/ybfK+5PHjbiB1UK9sumoj8+mLnxku4\nWCe0CVpAQrgu+StBUszfEywVoZCZnEX5hyaUNneIA0cMOEco9bUZQIP3T3HluB2M\nz3jd1MsNfcJm/7og6njpIB0oJhvGnM1Qfx2MITk8AQKBgQD9U6jeupw8E5BRvzgr\nEqLuzcKYCTdUVm1l/VY+i3xvOggobbAT5FpaCzwtqwI5FAUE6BT0ZwdWGzbK2x9q\nfWzjN2yBW3atSRQCs8eSn/VuqMgFn5SR9bnEcmmgN1CD6zFLlgNWw5II7eBf95Qn\nDPaXnopPt1+joW3/3mQqlxngUwKBgQDxROPSkKkfi9QyJBLCmVVm6ltJjIMJ+PvC\npMNrFPRUdzf2LhtRI9hTN5gWy/TkOnfy79ZCR34X1rLxeRdbLCZ7X8QLaQg/a3nj\niQFFXH4uqYyoYVryNV0J/KDW1AlGDX8/aaQ2xsIlgPl9Z1HM7ElT9/fCqJ529TSb\nWkV4aQ2qAQKBgBf8HMgByRsTCx4CSdIiMJUFnEAC118/05nNc6X2VPC/ANi7EenA\nPCG8YJU+VLaMw7DkPF+rhZFMgFKSjpXpjC6zJ63TuBfODHv5A5NJW9Z/WnjV1B5B\nsrX70y5dLl1fHkq2yFglqiT4SL8tVLSh0JMoapYDmaWHej+4kalKpyOLAoGAT9IM\n1XMKoOcv8s7AbiUwffX28aRNDhWTpVfBV0H9e5xdpVKnsvZ68T0pUhF0GbXGTVdP\nuWnRq61aUk1PjthSeuq5/1RmaCT0lHSVOQ9ap7FsWaCr6AoDl/Q+ehR4ZPa+LIqU\ny5KCVMoQwI5YH8XklKUrEPmcQ5roJqV86lNHNAECgYBz1frZ2MAUURVIQ3DS8POd\n9biTc4NeG4axo1+omVBsPUZYU6vz7hsgi/cYnh/NW/LhTVtDm1y3PkC+duLM2ZNt\nFZabhV8fP1eV7DY/DqVR0Bv/S0sOnytTgXM9I+AOG217IuPuS8TvYO4G23bGpuYg\nS5Nni+Ieh4ZWgiIFhfJqGQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "fintrack-424802@appspot.gserviceaccount.com",
+  "client_id": "102046870337460231690",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/fintrack-424802%40appspot.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

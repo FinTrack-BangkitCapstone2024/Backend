@@ -157,11 +157,22 @@ const financial_controller = {
 
       const pemasukan =[]
       const pengeluaran = []
+      const balance = []
       for(const item of data){
         pemasukan.push(item[0])
         pengeluaran.push(item[1])
+        balance.push(parseFloat(item[0]) - parseFloat(item[1]));
       }
-      res.status(200).json({ code: 200, status: 'success', data: {pemasukan, pengeluaran} });
+      res.status(200).json({ code: 200, status: 'success', data: {pemasukan, pengeluaran, balance} });
+    } catch (error) {
+      res.status(500).json({ code: 500, status: 'error', message: error.message });
+    }
+  },
+
+  forecastingHistory: async (req, res) => {
+    try {
+      const items = await Financial.forecastingHistory(req.params.usahaId);
+      res.status(200).json({ code: 200, status: 'success', data: items });
     } catch (error) {
       res.status(500).json({ code: 500, status: 'error', message: error.message });
     }
@@ -169,14 +180,14 @@ const financial_controller = {
 
   getLaporanHariIni : async(req, res) => {
     try {
-      const {usahaId} = req.params.usahaId
+      const usahaId = req.params.usahaId
       const financials = await Financial.findAllBy('usaha_id', usahaId, 'tanggal', 'desc');
       let pemasukan_terbaru = 0;
       let pengeluaran_terbaru = 0;
       let pemasukan_sebelum_terbaru = 0;
       let pengeluaran_sebelum_terbaru = 0;
-      const daftar_tanggal = [...new Set(financials.map(item => item.tanggal))];
-      console.log(daftar_tanggal);
+      // console.log(financials);
+      const daftar_tanggal = [...new Set(financials.map((item) => item.tanggal))];
 
       
       const tanggal_terbaru = daftar_tanggal[0];
@@ -263,6 +274,8 @@ const financial_controller = {
       res.status(500).json({ code: 500, status: 'error', message: error.message });
     }
   }
+
+  
 };
 
 module.exports = financial_controller;

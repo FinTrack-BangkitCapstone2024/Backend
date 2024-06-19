@@ -29,30 +29,44 @@ class Model {
   }
 
   async findAllBy(field, value, sortField = null, sortOrder = 'asc') {
-    const snapshot = await getDocs(this.collectionRef);
-    let items = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-    items = items.filter((item) => item[field] == value);
-
-    if (sortField) {
-      items.sort((a,b) => {
-        let a_val = a[sortField];
-        let b_val = b[sortField];
-        if(sortField == 'tanggal') {
-          a_val = new Date(a[sortField])
-          b_val = new Date(b[sortField]) 
-        }else if(sortField == 'jumlah') {
-          a_val = parseInt(a[sortField])
-          b_val = parseInt(b[sortField])
-        }
-        if (sortOrder == 'asc') {
-          return a_val > b_val ? 1 : -1;
-        }else{
-          return a_val < b_val ? 1 : -1;
-        }
-      })
+    try {
+      const snapshot = await getDocs(this.collectionRef);
+      let items = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+      console.log("field, value");
+      console.log(field, ' ' ,value);
+      // console.log(items);
+      items = items.filter((item) => item[field] === value);
+      // console.log(items);
+  
+      if (sortField) {
+        items.sort((a, b) => {
+          let a_val = a[sortField];
+          let b_val = b[sortField];
+  
+          if (sortField === 'tanggal') {
+            a_val = new Date(a_val);
+            b_val = new Date(b_val);
+          } else if (sortField === 'jumlah') {
+            a_val = parseInt(a_val);
+            b_val = parseInt(b_val);
+          }
+  
+          if (a_val == null) return sortOrder === 'asc' ? -1 : 1;
+          if (b_val == null) return sortOrder === 'asc' ? 1 : -1;
+  
+          if (sortOrder === 'asc') {
+            return a_val > b_val ? 1 : (a_val < b_val ? -1 : 0);
+          } else {
+            return a_val < b_val ? 1 : (a_val > b_val ? -1 : 0);
+          }
+        });
+      }
+  
+      return items.length > 0 ? items : null;
+    } catch (error) {
+      console.error("Error fetching documents: ", error);
+      return null;
     }
-
-    return items.length > 0 ? items : null;
   }
 
   async findBy(field, value) {
