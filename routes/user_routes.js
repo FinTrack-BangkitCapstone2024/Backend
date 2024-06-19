@@ -10,6 +10,7 @@ router.get('/:id', user_controller.getUsers);
 router.post('/', user_controller.addUser);
 
 router.put('/:id', user_controller.editUser);
+router.put('/:id/password', user_controller.editUserPassword);
 
 router.delete('/:id', user_controller.deleteUser);
 

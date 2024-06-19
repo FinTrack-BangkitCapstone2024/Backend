@@ -44,6 +44,14 @@ const user_controller = {
   },
 
   editUser: async (req, res) => {
+    try {
+      const user = await User.edit(req.params.id, req.body);
+      res.status(200).json({ code: 200, status: 'edited', data: user });
+    } catch (error) {
+      res.status(500).json({ code: 500, status: 'error', message: error.message });
+    }
+  },
+  editUserPassword: async (req, res) => {
     const {new_password, old_password, ...rest} = req.body;
     try {
       const old_user = await User.findById(req.params.id);
@@ -62,7 +70,6 @@ const user_controller = {
         req.body.old_password = null;
         req.body.password = new_hash_password;
       }
-
       const user = await User.edit(req.params.id, rest);
       return res.status(200).json({ code: 200, status: 'edited', data: user });
     } catch (error) {
