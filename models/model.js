@@ -95,6 +95,14 @@ class Model {
     await updateDoc(doc(db, this.collectionName, id), body);
     return await this.findById(id);
   }
+  async editPassword(id, password) {
+    const oldUser = await this.findById(id);
+    if (oldUser.length == 0) {
+      throw new Error('User not found');
+    }
+    await updateDoc(doc(db, this.collectionName, id), { password });
+    return await this.findById(id);
+  }
 
   async delete(id) {
     const user = await this.findById(id);

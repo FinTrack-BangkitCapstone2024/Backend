@@ -1,7 +1,7 @@
 const { signInWithEmailAndPassword, createUserWithEmailAndPassword } = require('firebase/auth');
 const { auth } = require('../config/firebase');
 const User = require('../models/user_model');
-const bycrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
 
 const auth_controller = {
 
@@ -31,7 +31,7 @@ const auth_controller = {
       }
       
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const passwordHash = await bycrypt.hash(password, 10);
+      const passwordHash = await bcrypt.hash(password,10);
       const newUser = await User.add({ email, password: passwordHash, name });
       if (userCredential.user) {
         res.status(201).json({ code: 200, status: 'created', data: { user: newUser, token: userCredential.user.stsTokenManager } });
