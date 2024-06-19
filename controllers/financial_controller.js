@@ -175,7 +175,7 @@ const financial_controller = {
       let pengeluaran_terbaru = 0;
       let pemasukan_sebelum_terbaru = 0;
       let pengeluaran_sebelum_terbaru = 0;
-      console.log(financials);
+      // console.log(financials);
       const daftar_tanggal = [...new Set(financials.map((item) => item.tanggal))];
 
       

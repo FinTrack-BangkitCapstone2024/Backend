@@ -34,9 +34,9 @@ class Model {
       let items = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
       console.log("field, value");
       console.log(field, ' ' ,value);
-      console.log(items);
+      // console.log(items);
       items = items.filter((item) => item[field] === value);
-      console.log(items);
+      // console.log(items);
   
       if (sortField) {
         items.sort((a, b) => {
