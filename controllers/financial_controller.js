@@ -169,14 +169,14 @@ const financial_controller = {
 
   getLaporanHariIni : async(req, res) => {
     try {
-      const {usahaId} = req.params.usahaId
+      const usahaId = req.params.usahaId
       const financials = await Financial.findAllBy('usaha_id', usahaId, 'tanggal', 'desc');
       let pemasukan_terbaru = 0;
       let pengeluaran_terbaru = 0;
       let pemasukan_sebelum_terbaru = 0;
       let pengeluaran_sebelum_terbaru = 0;
-      const daftar_tanggal = [...new Set(financials.map(item => item.tanggal))];
-      console.log(daftar_tanggal);
+      console.log(financials);
+      const daftar_tanggal = [...new Set(financials.map((item) => item.tanggal))];
 
       
       const tanggal_terbaru = daftar_tanggal[0];
@@ -263,6 +263,8 @@ const financial_controller = {
       res.status(500).json({ code: 500, status: 'error', message: error.message });
     }
   }
+
+  
 };
 
 module.exports = financial_controller;

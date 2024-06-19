@@ -158,7 +158,7 @@ class Financial extends Model {
       for (let i = 0; i < 7; i++) {
         const date = new Date(maximumDay);
         date.setDate(maximumDay.getDate() - i);
-        hari.push(this.namingDate(date.getDay()));
+        hari.push(this.formatDateToYM(date));
       }
       console.log(hari);
       return { day: hari.reverse(), masukan: weeklyMasukan.reverse(), pengeluaran: weeklyKeluaran.reverse() };
@@ -207,7 +207,7 @@ class Financial extends Model {
       date.setDate(maximumDay.getDate() - i);
       bulan.push(this.formatDateToYM(date));
     }
-    return { tanggal: bulan, masukan: monthlyMasukan.reverse(), pengeluaran: monthlyKeluaran.reverse() };
+    return { tanggal: bulan.reverse(), masukan: monthlyMasukan.reverse(), pengeluaran: monthlyKeluaran.reverse() };
   }
 
   async getYearlyFinancial(id_usaha) {  
@@ -250,7 +250,7 @@ class Financial extends Model {
     for (let i = 0; i < 12; i++) {
       const date = new Date(maximumDay);
       date.setMonth(maximumDay.getMonth() - i);
-      bulan.push(date.toLocaleString('default', { month: 'long' }));
+      bulan.push(date.toLocaleString('default', { month: 'short' }));
     }
     return { bulan: bulan.reverse(), masukan: yearlyMasukan.reverse(), pengeluaran: yearlyKeluaran.reverse() };
   }
