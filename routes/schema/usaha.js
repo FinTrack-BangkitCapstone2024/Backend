@@ -78,7 +78,7 @@
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '/api/usaha/'
+ *                 $ref: '#/components/schemas/usaha'
  *   post:
  *     summary: Create a new usaha
  *     tags: [Usaha]
@@ -87,20 +87,17 @@
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Book'
+ *             $ref: '#/components/schemas/usaha'
  *     responses:
  *       200:
  *         description: The created usaha.
  *         content:
  *           application/json:
  *             schema:
- *               Usaha:
- *                  type: object
- *       500:
- *         description: Some server error
- * /usaha/{id}:
+ *              $ref: '#/components/schemas/usaha'
+ * /api/usaha/{usahaId}:
  *   get:
- *     summary: Get the book by id
+ *     summary: Get the usaha by usahaid
  *     tags: [Usaha]
  *     parameters:
  *       - in: path
@@ -108,57 +105,56 @@
  *         schema:
  *           type: string
  *         required: true
- *         description: The book id
+ *         description: The usaha id
  *     responses:
  *       200:
- *         description: The book response by id
+ *         description: The usaha response by id
  *         contens:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Book'
- *       404:
- *         description: The book was not found
+ *               $ref: '#/components/schemas/usaha'
  *   put:
- *    summary: Update the book by the id
+ *    summary: Update the usaha by the id
  *    tags: [Usaha]
  *    parameters:
  *      - in: path
- *        name: id
+ *        name: usahaId
  *        schema:
  *          type: string
  *        required: true
- *        description: The book id
+ *        description: The usaha id
  *    requestBody:
  *      required: true
  *      content:
  *        application/json:
  *          schema:
- *            $ref: '#/components/schemas/Book'
+ *            $ref: '#/components/schemas/usaha'
  *    responses:
  *      200:
- *        description: The book was updated
+ *        description: The usaha was updated
  *        content:
  *          application/json:
  *            schema:
- *              $ref: '#/components/schemas/Book'
- *      404:
- *        description: The book was not found
- *      500:
- *        description: Some error happened
- *   delete:
- *     summary: Remove the book by id
+ *              $ref: '#/components/schemas/usaha'
+ * /api/usaha/owner/{userId}:
+ *   get:
+ *     summary: Get the usaha by usahaId
  *     tags: [Usaha]
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: Userid
  *         schema:
  *           type: string
  *         required: true
- *         description: The book id
+ *         description: The user id
  *
  *     responses:
  *       200:
- *         description: The book was deleted
- *       404:
- *         description: The book was not found
+ *         description: The list of usaha by Id
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Business'
  */

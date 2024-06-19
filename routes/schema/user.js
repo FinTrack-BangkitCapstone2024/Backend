@@ -31,101 +31,93 @@
 /**
  * @swagger
  * tags:
- *   name: User
+ *   name: Users
  *   description: User managing API
  * /api/users/:
  *   get:
- *     summary: Lists all the usaha
- *     tags: [Usaha]
+ *     summary: Lists all the users
+ *     tags: [Users]
  *     responses:
  *       200:
- *         description: The list of the usaha
+ *         description: The list of the user
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '/api/usaha/'
+ *                 $ref: '#/components/schemas/User'
  *   post:
- *     summary: Create a new usaha
- *     tags: [Usaha]
+ *     summary: Create a new user
+ *     tags: [Users]
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Book'
+ *             $ref: '#/components/schemas/Users'
  *     responses:
  *       200:
- *         description: The created usaha.
+ *         description: The created user.
  *         content:
  *           application/json:
  *             schema:
- *               Usaha:
- *                  type: object
- *       500:
- *         description: Some server error
- * /usaha/{id}:
+ *               $ref: '#/components/schemas/User'
+ *       
+ * /api/usaha/{id}:
  *   get:
- *     summary: Get the book by id
- *     tags: [Usaha]
+ *     summary: Get the user by id
+ *     tags: [Users]
  *     parameters:
  *       - in: path
  *         name: id
  *         schema:
  *           type: string
  *         required: true
- *         description: The book id
+ *         description: The user id
  *     responses:
  *       200:
- *         description: The book response by id
+ *         description: The user response by id
  *         contens:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Book'
- *       404:
- *         description: The book was not found
+ *       
  *   put:
- *    summary: Update the book by the id
- *    tags: [Usaha]
- *    parameters:
- *      - in: path
- *        name: id
- *        schema:
- *          type: string
- *        required: true
- *        description: The book id
- *    requestBody:
- *      required: true
- *      content:
- *        application/json:
+ *      summary: Update the user by the id
+ *      tags: [Users]
+ *      parameters:
+ *        - in: path
+ *          name: id
  *          schema:
- *            $ref: '#/components/schemas/Book'
- *    responses:
- *      200:
- *        description: The book was updated
+ *            type: string
+ *          required: true
+ *          description: The user id
+ *      requestBody:
+ *        required: true
  *        content:
  *          application/json:
  *            schema:
  *              $ref: '#/components/schemas/Book'
- *      404:
- *        description: The book was not found
- *      500:
- *        description: Some error happened
+ *      responses:
+ *        200:
+ *          description: The user was updated
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/Book'
+ *      
  *   delete:
- *     summary: Remove the book by id
- *     tags: [Usaha]
+ *     summary: Remove the user by id
+ *     tags: [Users]
  *     parameters:
  *       - in: path
  *         name: id
  *         schema:
  *           type: string
  *         required: true
- *         description: The book id
+ *         description: The user id
  *
  *     responses:
  *       200:
- *         description: The book was deleted
- *       404:
- *         description: The book was not found
+ *         description: The user was deleted
  */
