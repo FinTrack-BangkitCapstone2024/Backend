@@ -29,7 +29,7 @@ const usaha_controller = {
     let photo_url = null
     const { file } = req;
 
-    if(file){
+    if (file) {
       const fileName = `${Date.now()}-${req.file.originalname}`;
       const folderName = 'logo';
       const blob = bucket.file(`${folderName}/${fileName}`);
@@ -37,30 +37,30 @@ const usaha_controller = {
         resumable: false,
         contentType: file.mimetype,
       });
-  
+
       blobStream.on('error', (err) => res.status(500).send({ message: err.message }));
-  
+
       blobStream.on('finish', async () => {
         photo_url = `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
       });
+      blobStream.end(file.buffer);
     }
 
 
-      const Items = {
-        nama: req.body.nama,
-        user_id: req.body.user_id,
-        jenis: req.body.jenis,
-        lokasi: req.body.lokasi,
-      };
+    const Items = {
+      nama: req.body.nama,
+      user_id: req.body.user_id,
+      jenis: req.body.jenis,
+      lokasi: req.body.lokasi,
+    };
 
-      Items.logo_path = photo_url ? photo_url : null;
-      try {
-        const usaha = await Usaha.add(Items);
-        res.status(201).json({ code: 201, status: 'created', data: { id: usaha.id } });
-      } catch (error) {
-        res.status(500).json({ code: 500, status: 'error', message: error.message });
-      }
-    blobStream.end(file.buffer);
+    Items.logo_path = photo_url ? photo_url : null;
+    try {
+      const usaha = await Usaha.add(Items);
+      res.status(201).json({ code: 201, status: 'created', data: { id: usaha.id } });
+    } catch (error) {
+      res.status(500).json({ code: 500, status: 'error', message: error.message });
+    }
   },
   editUsaha: async (req, res) => {
     try {
