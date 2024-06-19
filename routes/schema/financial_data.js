@@ -2,7 +2,7 @@
  * @swagger
  * components:
  *   schemas:
- *     Financial_data:
+ *     Financial:
  *       type: object
  *       required:
  *         - user_id
@@ -23,7 +23,7 @@
  *           description: Unique ID of the related business
  *         title:
  *           type: string
- *           description: Title of the financial entry
+ *           description: Title of the usaha entry
  *         type:
  *           type: string
  *           description: Type of financial entry (income or expense)
@@ -43,21 +43,21 @@
  *         usaha_id: 60d0fe4f5311236168a109cb
  *         title: Bangkit2024
  *         type: masukan
- *         money: 100.500
+ *         money: 100500
  *         description: Purchase of Bangkit Education
  *         date: 2023-06-15
- *         balance: 500.000
+ *         balance: 500000
  */
 
 /**
  * @swagger
  * tags:
- *   name: Usaha
- *   description: Usaha managing API
- * /api/usaha/:
+ *   name: Financial
+ *   description: Financial managing API
+ * /api/usaha/{usahaId}/financial:
  *   get:
  *     summary: Lists all the usaha
- *     tags: [Usaha]
+ *     tags: [Financial]
  *     responses:
  *       200:
  *         description: The list of the usaha
@@ -66,87 +66,225 @@
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '/api/usaha/'
- *   post:
- *     summary: Create a new usaha
- *     tags: [Usaha]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/Book'
- *     responses:
- *       200:
- *         description: The created usaha.
- *         content:
- *           application/json:
- *             schema:
- *               Usaha:
- *                  type: object
- *       500:
- *         description: Some server error
- * /usaha/{id}:
+ *                 $ref: '#/components/schemas/Financial'
+ * 
+ * /api/usaha/{usahaId}/financial/{financialId}:
  *   get:
- *     summary: Get the book by id
- *     tags: [Usaha]
+ *     summary: Get the financial by financialId
+ *     tags: [Financial]
  *     parameters:
  *       - in: path
  *         name: id
  *         schema:
  *           type: string
  *         required: true
- *         description: The book id
+ *         description: The usaha id
  *     responses:
  *       200:
- *         description: The book response by id
+ *         description: The usaha response by id
  *         contens:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Book'
- *       404:
- *         description: The book was not found
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Financial'
+ *   delete:
+ *     summary: Delete financial data
+ *     tags: [Financial]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The usaha id
+ *     responses:
+ *       200:
+ *         description: The usaha response by id
+ *         contens:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Financial'
+ * 
  *   put:
- *    summary: Update the book by the id
- *    tags: [Usaha]
+ *    summary: Update the financial by the id
+ *    tags: [Financial]
  *    parameters:
  *      - in: path
- *        name: id
+ *        name: usahaId
  *        schema:
  *          type: string
  *        required: true
- *        description: The book id
+ *        description: The usaha id
  *    requestBody:
  *      required: true
  *      content:
  *        application/json:
- *          schema:
- *            $ref: '#/components/schemas/Book'
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Financial'
+ * 
  *    responses:
  *      200:
- *        description: The book was updated
+ *        description: The financial was updated
  *        content:
  *          application/json:
  *            schema:
- *              $ref: '#/components/schemas/Book'
- *      404:
- *        description: The book was not found
- *      500:
- *        description: Some error happened
- *   delete:
- *     summary: Remove the book by id
- *     tags: [Usaha]
+ *              $ref: '#/components/schemas/financial'
+ * 
+ * /api/usaha/{usahaId}/analysis:
+ *   get:
+ *     summary: Get the financial analisys
+ *     tags: [Financial]
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: Userid
  *         schema:
  *           type: string
  *         required: true
- *         description: The book id
+ *         description: The user id
  *
  *     responses:
  *       200:
- *         description: The book was deleted
- *       404:
- *         description: The book was not found
+ *         description: The financial analysis
+ *         content:
+ *          application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/financial'
+ * /api/usaha/{usahaId}/weekly:
+ *   get:
+ *     summary: Get the financial weekly analisys
+ *     tags: [Financial]
+ *     parameters:
+ *       - in: path
+ *         name: Userid
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The user id
+ *
+ *     responses:
+ *       200:
+ *         description: The financial analysis
+ *         content:
+ *          application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/financial'
+ * /api/usaha/{usahaId}/monthly:
+ *   get:
+ *     summary: Get the financial analisys
+ *     tags: [Financial]
+ *     parameters:
+ *       - in: path
+ *         name: Userid
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The user id
+ *
+ *     responses:
+ *       200:
+ *         description: The financial analysis
+ *         content:
+ *          application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/financial'
+ * /api/usaha/{usahaId}/yearly:
+ *   get:
+ *     summary: Get the financial analisys
+ *     tags: [Financial]
+ *     parameters:
+ *       - in: path
+ *         name: Userid
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The user id
+ *
+ *     responses:
+ *       200:
+ *         description: The financial analysis
+ *         content:
+ *          application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/financial'
+ * /api/usaha/{usahaId}/forecasting:
+ *   get:
+ *     summary: Get the forecasting financial analisys
+ *     tags: [Financial]
+ *     parameters:
+ *       - in: path
+ *         name: Userid
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The user id
+ *
+ *     responses:
+ *       200:
+ *         description: The financial analysis
+ *         content:
+ *          application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/financial'
+ * /api/usaha/{usahaId}/laporan:
+ *   get:
+ *     summary: Get the financial analisys
+ *     tags: [Financial]
+ *     parameters:
+ *       - in: path
+ *         name: Userid
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The user id
+ *
+ *     responses:
+ *       200:
+ *         description: The financial analysis
+ *         content:
+ *          application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/financial'
+ * /api/usaha/financial:
+ *   post:
+ *     summary: Add financial data
+ *     tags: [Financial]
+ *     parameters:
+ *       - in: path
+ *         name: Userid
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The user id
+ *
+ *     responses:
+ *       200:
+ *         description: The financial analysis
+ *         content:
+ *          application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/financial'
+ * /api/usaha/financial/csv:
+ *   post:
+ *     summary: Add financial data with csv
+ *     tags: [Financial]
+ *     parameters:
+ *       - in: path
+ *         name: Userid
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The user id
+ *
+ *     responses:
+ *       200:
+ *         description: The financial analysis
+ *         content:
+ *          application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/financial'
  */
