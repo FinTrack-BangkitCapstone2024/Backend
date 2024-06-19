@@ -20,7 +20,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api', routes);
 
 app.get('/', (req, res) => {
-  res.redirect('/docs');
+  res.redirect('/api-docs');
 });
 
 const options = {
@@ -50,7 +50,7 @@ const options = {
 };
 
 const specs = swaggerJsdoc(options);
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(specs, { explorer: true }));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs, { explorer: true }));
 
 app.listen(port, () => {
   console.log(`app running at http://localhost:${port}`);
