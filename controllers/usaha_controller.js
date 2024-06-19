@@ -50,7 +50,7 @@ const usaha_controller = {
         nama: req.body.nama,
         user_id: req.body.user_id,
         jenis: req.body.jenis,
-        lokasi: req.body.lokasi,s
+        lokasi: req.body.lokasi,
       };
 
       Items.logo_path = photo_url ? photo_url : null;
