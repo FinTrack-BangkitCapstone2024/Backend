@@ -37,3 +37,12 @@ Untuk melihat dokumentasi lokal, jalankan project terlebih dahulu. Lalu buka url
 
 
     
+
+## Tech Stack
+
+**Server:** Node, Express, Axios
+
+**Data Storage:** Firestore, Cloud Storage, 
+
+**Virtual Macihne:** Compute Engine, App Engine 
+
