@@ -7,9 +7,11 @@ const financial_controller = {
 
   getAllFinancialByUsahaId: async (req, res) => {
     try {
-      const { sortField, sortOrder } = req.query;
-      const items = await Financial.findAllBy('usaha_id', req.params.usahaId, sortField, sortOrder);
-      res.status(200).json({ code: 200, status: 'success', data: items });
+      const { sortField, sortOrder, page, size } = req.query;
+      const pageNumber = parseInt(page, 10) || 1;
+      const pageSize = parseInt(size, 10) || 20;
+      const items = await Financial.findAllBy('usaha_id', req.params.usahaId, sortField, sortOrder, pageNumber, pageSize);
+      res.status(200).json({ code: 200, status: 'success', length: items.length, data: items, });
     } catch (error) {
       res.status(500).json({ code: 500, status: 'error', message: error.message });
     }

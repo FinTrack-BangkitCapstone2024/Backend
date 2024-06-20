@@ -1,6 +1,5 @@
-const { snapshotEqual } = require('firebase/firestore');
 const {
-  getFirestore, collection, getDocs, addDoc, updateDoc, doc, getDoc, deleteDoc,
+  getFirestore, collection, getDocs, addDoc, updateDoc, doc, getDoc, deleteDoc, query, where, orderBy, startAfter, limit,
 } = require('firebase/firestore/lite');
 const { firebaseApp } = require('../config/firebase');
 
@@ -28,40 +27,25 @@ class Model {
     return null;
   }
 
-  async findAllBy(field, value, sortField = null, sortOrder = 'asc') {
+  // Fungsi yang dimodifikasi untuk mendukung pagination
+  async findAllBy(field, value, sortField = null, sortOrder = 'asc', page = 1, size = 20) {
     try {
-      const snapshot = await getDocs(this.collectionRef);
-      let items = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-      console.log("field, value");
-      console.log(field, ' ' ,value);
-      // console.log(items);
-      items = items.filter((item) => item[field] === value);
-      // console.log(items);
-  
+      let q = query(this.collectionRef, where(field, '==', value));
       if (sortField) {
-        items.sort((a, b) => {
-          let a_val = a[sortField];
-          let b_val = b[sortField];
-  
-          if (sortField === 'tanggal') {
-            a_val = new Date(a_val);
-            b_val = new Date(b_val);
-          } else if (sortField === 'jumlah') {
-            a_val = parseInt(a_val);
-            b_val = parseInt(b_val);
-          }
-  
-          if (a_val == null) return sortOrder === 'asc' ? -1 : 1;
-          if (b_val == null) return sortOrder === 'asc' ? 1 : -1;
-  
-          if (sortOrder === 'asc') {
-            return a_val > b_val ? 1 : (a_val < b_val ? -1 : 0);
-          } else {
-            return a_val < b_val ? 1 : (a_val > b_val ? -1 : 0);
-          }
-        });
+        q = query(q, orderBy(sortField, sortOrder === 'asc' ? 'asc' : 'desc'));
       }
-  
+
+      const lastVisibleIndex = (page - 1) * size;
+      if (lastVisibleIndex > 0) {
+        const lastVisibleDoc = await this.getLastVisibleDoc(field, value, sortField, sortOrder, lastVisibleIndex);
+        q = query(q, startAfter(lastVisibleDoc), limit(size));
+      } else {
+        q = query(q, limit(size));
+      }
+
+      const snapshot = await getDocs(q);
+      const items = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+      
       return items.length > 0 ? items : null;
     } catch (error) {
       console.error("Error fetching documents: ", error);
