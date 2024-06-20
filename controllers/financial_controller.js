@@ -9,7 +9,7 @@ const financial_controller = {
     try {
       const { sortField, sortOrder, page, size } = req.query;
       const pageNumber = parseInt(page, 10) || 1;
-      const pageSize = parseInt(size, 10) || 20;
+      const pageSize = parseInt(size, 10) || 800;
       const items = await Financial.findAllBy('usaha_id', req.params.usahaId, sortField, sortOrder, pageNumber, pageSize);
       res.status(200).json({ code: 200, status: 'success', length: items.length, data: items, });
     } catch (error) {

@@ -28,7 +28,7 @@ class Model {
   }
 
   // Fungsi yang dimodifikasi untuk mendukung pagination
-  async findAllBy(field, value, sortField = null, sortOrder = 'asc', page = 1, size = 20) {
+  async findAllBy(field, value, sortField = null, sortOrder = 'asc', page = 1, size = 800) {
     try {
       let q = query(this.collectionRef, where(field, '==', value));
       if (sortField) {
