@@ -183,7 +183,7 @@ const financial_controller = {
   getLaporanHariIni : async(req, res) => {
     try {
       const usahaId = req.params.usahaId
-      const financials = await Financial.findAllBy('usaha_id', usahaId, 'tanggal', 'desc');
+      const financials = await Financial.findAllByField('usaha_id', usahaId, 'tanggal', 'desc');
       let pemasukan_terbaru = 0;
       let pengeluaran_terbaru = 0;
       let pemasukan_sebelum_terbaru = 0;
